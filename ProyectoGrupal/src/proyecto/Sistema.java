@@ -21,39 +21,9 @@ public class Sistema {
       // menu();
       
       //comentario
-      Sistema main = new Sistema();
-        main.menu();
+      Menu main = new Menu();
+      Menu.presentarMenuUsuario();
+      Menu.presentarMenuPlanificador();
     }
-     public void menu(){
-        String opcion="";
-        while(!opcion.equals("6")){
-              System.out.println("/*********Nueva Solicitud**********/");
-              System.out.println("/*                                    */");
-              System.out.println("/***********************************/");
-              System.out.println("1. Boda ");
-              System.out.println("2. Fiesta Infantil ");
-              System.out.println("3. Fiesta Empresarial ");
-              System.out.print("Seleccione: ");
-              opcion = sc.nextLine();
-            switch (opcion){
-                case "1":
-                    System.out.println("/*********EVENTO BODA**********/");
-                    System.out.println("                                   ");
-                    break;
-                case "2":
-                    System.out.println("/*********EVENTO FIESTA INFANTIL**********/");
-                    System.out.println("                                   ");
-                    break;
-                case "3": 
-                   System.out.println("/*********EVENTO FIESTA EMPRESARIAL**********/");
-                    System.out.println("                                   ");
-                    break;
-                
-                default:
-                    System.out.println("Opcion No valida!!, vuelva a ingresar");
-            }
-        }
-        sc.close();
-    }
-    
 }
+    
