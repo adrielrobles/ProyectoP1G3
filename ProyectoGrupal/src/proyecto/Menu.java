@@ -10,7 +10,7 @@ package proyecto;
  * @author ErikaVilla
  */
 public class Menu {
-    public static void presentarMenuUsurio(){
+    public static void presentarMenuUsuario(){
         
     }
     public static void presentarMenuPlanificador(){
