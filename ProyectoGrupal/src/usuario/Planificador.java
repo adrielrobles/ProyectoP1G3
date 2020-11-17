@@ -12,10 +12,12 @@ import java.util.ArrayList;
  *
  * @author ErikaVilla
  */
-public class Planificador {
+public class Planificador extends Usuario {
     ArrayList<Evento> listaEventos;
-
-            
+    
+    public Planificador(String nombre, String apellido, String usuario, String contrasena, char tipo) {
+        super(nombre, apellido, usuario, contrasena, tipo);
+    }     
     public ArrayList<Solicitud> consultarSoliPen(){
         return null;
         

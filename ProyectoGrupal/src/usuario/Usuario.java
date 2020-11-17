@@ -9,7 +9,7 @@ package usuario;
  *
  * @author ErikaVilla
  */
-public class Usuario {
+public abstract class Usuario {
     public String nombre;
     public String apellido;
     public String usuario;
@@ -57,6 +57,17 @@ public class Usuario {
     public void setTipo(char tipo) {
         this.tipo = tipo;
     }
+     /*
+    Creacion de constructor el cual va recibir como parametros todas las varibles de instancia
+    */
+    public Usuario(String nombre, String apellido, String usuario, String contrasena, char tipo) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.tipo = tipo;
+    }
+    
     
 
 
