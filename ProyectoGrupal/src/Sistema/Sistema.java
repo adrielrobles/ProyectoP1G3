@@ -132,7 +132,7 @@ public class Sistema {
                                    
                                     boolean validafecha = new Evento().validarTiempo(fecha, 21);
 
-                                    if (validafecha==true) {
+                                    if (validafecha) {
                                         System.out.println("¡Fecha valida!");
                                         System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
                                         fechaValidada = true;
@@ -164,7 +164,7 @@ public class Sistema {
                                     
                                     boolean validafecha = new Evento().validarTiempo(fecha, 60);
 
-                                    if (validafecha==true) {
+                                    if (validafecha) {
                                         System.out.println("¡Fecha valida!");
                                         System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
                                         fechaValidada = true;
