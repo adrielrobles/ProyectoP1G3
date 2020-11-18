@@ -13,8 +13,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import usuario.Cliente;
-import tipos.TipoEstadoS;
 import usuario.Solicitud;
+import evento.Evento;
 
 /**
  *
@@ -22,7 +22,6 @@ import usuario.Solicitud;
  */
 public class Sistema {
    ArrayList<Usuario> usuarios = new ArrayList<>();
-    ArrayList<Solicitud> solicitudes = new ArrayList<>();
 
     static Scanner sc = new Scanner(System.in);
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -90,9 +89,9 @@ public class Sistema {
                                     Date fecha = formato.parse(fechax);
                                     //solicitudFecha.getFechaEvento();
 
-                                    int fechas = new evento.Evento().validarTiempo(fecha);
+                                    boolean validafecha = new Evento().validarTiempo(fecha, 304);
 
-                                    if (fechas > 304) {
+                                    if (validafecha) {
                                         System.out.println("¡Fecha valida!");
                                         System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
                                         fechaValidada = true;
@@ -113,29 +112,7 @@ public class Sistema {
                                 String registraSol = sc.nextLine();
                                 switch(registraSol){
                                 case "S":
-                                Usuario planificadorAleatorio;
-
-                                boolean condicion = false;
-
-                                do {
-                                    int longitud = usuarios.size();
-                                    double posicionAleatoria = Math.random() * (longitud - 1) + 0;  
-                                    int posaleInt = (int) posicionAleatoria;
-
-                                    planificadorAleatorio = usuarios.get(posaleInt);
-                                    char tipo = planificadorAleatorio.getTipo();
-                                    condicion = (tipo == 'P');
-
-                                } while (condicion == false);
                                 
-                                    
-                                    System.out.println("Cliente"+usuario.nombre);
-                                    System.out.println("Planificador Asignado: "+ planificadorAleatorio.getNombre()+" "+planificadorAleatorio.getApellido());
-                                    System.out.println("Fecha de registro: "+solicitudFecha.getFechaSolicitud());
-                                    System.out.println("Tipo Evento: BODA");
-                                    System.out.println("Fecha de Evento: "+ solicitudFecha.getFechaEvento());
-                                    agregarSolicitud();
-
                                 
                         }
                                 
@@ -152,9 +129,10 @@ public class Sistema {
                                     System.out.println("Fecha del evento: ");
                                     String fechax = sc.nextLine();
                                     Date fecha = formato.parse(fechax);
-                                    int fechas = new evento.Evento().validarTiempo(fecha);
-                                    System.out.println(fecha);
-                                    if (fechas > 21) {
+                                   
+                                    boolean validafecha = new Evento().validarTiempo(fecha, 21);
+
+                                    if (validafecha==true) {
                                         System.out.println("¡Fecha valida!");
                                         System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
                                         fechaValidada = true;
@@ -168,30 +146,7 @@ public class Sistema {
                                 String registraSo = sc.nextLine();
                                 switch(registraSo){
                                 case "S":
-                                Usuario planificadorAleatorio;
-
-                                boolean condicion = false;
-
-                                do {
-                                    int longitud = usuarios.size();
-                                    double posicionAleatoria = Math.random() * (longitud - 1) + 0; 
-                                    int posaleInt = (int) posicionAleatoria;
-
-                                    planificadorAleatorio = usuarios.get(posaleInt);
-                                    char tipo = planificadorAleatorio.getTipo();
-                                    condicion = (tipo == 'P');
-
-                                } while (condicion == false);
-                                
-                                    
-                                    System.out.println("Cliente"+usuario.nombre);
-                                    System.out.println("Planificador Asignado: "+ planificadorAleatorio.getNombre()+" "+planificadorAleatorio.getApellido());
-                                    System.out.println("Fecha de registro: "+solicitudFecha1.getFechaSolicitud());
-                                    System.out.println("Tipo Evento: BODA");
-                                    System.out.println("Fecha de Evento: "+ solicitudFecha1.getFechaEvento());
-                                    agregarSolicitud();
-
-                                
+                           
                         }
                                 break;
 
@@ -205,9 +160,11 @@ public class Sistema {
                                     System.out.println("Fecha del evento: ");
                                     String fechax = sc.nextLine();
                                     Date fecha = formato.parse(fechax);
-                                    int fechas = new evento.Evento().validarTiempo(fecha);
-                                    System.out.println(fecha);
-                                    if (fechas > 60) {
+                                    
+                                    
+                                    boolean validafecha = new Evento().validarTiempo(fecha, 60);
+
+                                    if (validafecha==true) {
                                         System.out.println("¡Fecha valida!");
                                         System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
                                         fechaValidada = true;
@@ -221,29 +178,7 @@ public class Sistema {
                                 String registraS = sc.nextLine();
                                 switch(registraS){
                                 case "S":
-                                Usuario planificadorAleatorio;
-
-                                boolean condicion = false;
-
-                                do {
-                                    int longitud = usuarios.size();
-                                    double posicionAleatoria = Math.random() * (longitud - 1) + 0;  
-                                    int posaleInt = (int) posicionAleatoria;
-
-                                    planificadorAleatorio = usuarios.get(posaleInt);
-                                    char tipo = planificadorAleatorio.getTipo();
-                                    condicion = (tipo == 'P');
-
-                                } while (condicion == false);
-                                
-                                    
-                                    System.out.println("Cliente"+usuario.nombre);
-                                    System.out.println("Planificador Asignado: "+ planificadorAleatorio.getNombre()+" "+planificadorAleatorio.getApellido());
-                                    System.out.println("Fecha de registro: "+solicitudFecha2.getFechaSolicitud());
-                                    System.out.println("Tipo Evento: BODA");
-                                    System.out.println("Fecha de Evento: "+ solicitudFecha2.getFechaEvento());
-                                    agregarSolicitud();
-
+              
                                 
                         }
                                 break;
@@ -350,25 +285,6 @@ public class Sistema {
         }
     }
 
-    //agregar solicitud
-    private void agregarSolicitud() {
-        ArrayList<String> solicitudes = ManejoArchivos.LeeFichero("solicitudes.txt");
-        Solicitud solNueva = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String codigo = solNueva.generarCodigo();
-        String nombreC = solNueva.cliente.getNombre();
-        String nomPlanificador = solNueva.planificador.getNombre();
-        Date fechasSol = solNueva.getFechaEvento();
-        String fechasSoli = sdf.format(fechasSol);
-        Date fechaEven = solNueva.getFechaSolicitud();
-        String fechaEven1 = sdf.format(fechaEven);
-        String estado = TipoEstadoS.PENDIENTE.toString();
-        solicitudes.add(codigo);
-        solicitudes.add(nombreC);
-        solicitudes.add(nomPlanificador);
-        solicitudes.add(fechasSoli);
-        solicitudes.add(fechaEven1);
-    }
 }
 
 //comentario

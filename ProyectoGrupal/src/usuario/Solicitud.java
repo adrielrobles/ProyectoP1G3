@@ -8,6 +8,7 @@ package usuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import tipos.TipoEstadoS;
 
 /**
@@ -15,19 +16,20 @@ import tipos.TipoEstadoS;
  * @author ErikaVilla
  */
 public class Solicitud {
+
     private String id_solicitud;
     public Cliente cliente;
     public Planificador planificador;
     private Date fechaSolicitud;
     private Date fechaEvento;
     private TipoEstadoS estado;
-    
+
     public void setFechaSolicitud(Date fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 
     public void setFechaEvento(Date fechaEvento) {
-       
+
         this.fechaEvento = fechaEvento;
     }
 
@@ -49,17 +51,21 @@ public class Solicitud {
         this.fechaEvento = fechaEvento;
         this.estado = estado;
     }
-    
-    public String generarCodigo(){
-        double codigo = Math.random()*(100) ;  // Esto da valores entre 0.0 y 7.0 excluido el 7.0
-        String codigos =Double.toString(codigo);
+
+    public String generarCodigo() {
+        double codigo = Math.random() * (100);  // Esto da valores entre 0.0 y 7.0 excluido el 7.0
+        String codigos = Double.toString(codigo);
         return codigos;
-        
-    }
-    public Planificador buscarPlanificador(ArrayList<Planificador>planificadores){
-        return null;
-        
+
     }
 
-    
+    public Planificador buscarPlanificador(ArrayList<Planificador> planificador) {
+        ArrayList<Planificador> unPlanificador = new ArrayList<>();
+        Random rand = new Random();
+        int posicion = rand.nextInt(unPlanificador.size());
+        Planificador elegidoPlanificador = unPlanificador.get(posicion);
+        return elegidoPlanificador;
+
+    }
+
 }

@@ -5,6 +5,12 @@
  */
 package usuario;
 
+import ManejoArchivo.ManejoArchivos;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import tipos.TipoEstadoS;
+
 /**
  *
  * @author ErikaVilla
@@ -31,8 +37,27 @@ public class Cliente extends Usuario {
         this.telefono=telefono;
         this.correoElectronico=correoElectronico;
     }
-    
+    private void agregarSolicitud() {
+        ArrayList<String> solicitudes = ManejoArchivos.LeeFichero("solicitudes.txt");
+        Solicitud solNueva = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String codigo = solNueva.generarCodigo();
+        String nombreC = solNueva.cliente.getNombre();
+        String nomPlanificador = solNueva.planificador.getNombre();
+        Date fechasSol = solNueva.getFechaEvento();
+        String fechasSoli = sdf.format(fechasSol);
+        Date fechaEven = solNueva.getFechaSolicitud();
+        String fechaEven1 = sdf.format(fechaEven);
+        String estado = TipoEstadoS.PENDIENTE.toString();
+        solicitudes.add(codigo);
+        solicitudes.add(nombreC);
+        solicitudes.add(nomPlanificador);
+        solicitudes.add(fechasSoli);
+        solicitudes.add(fechaEven1);
+    }
     public Solicitud generarSolicitud(){
+        
+        
         return null;
         
     }
