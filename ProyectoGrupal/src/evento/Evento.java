@@ -5,6 +5,7 @@
  */
 package evento;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import tipos.TipoEstadoS;
@@ -33,9 +34,22 @@ public class Evento {
     public static void mostrarMensaje(){
     
 }
-    private boolean validarTiempo(Date fecha){
-        return false;
-        
+ public int validarTiempo(Date fecha) {
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaInicial = new Date();
+
+        int dias = (int) ((fecha.getTime() - fechaInicial.getTime()) / (86400000));//1dia tiene 86400000
+        return dias;
+       
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
     
   //  private int  generarCodigoE(ArrayList<int>eventos, ArrayList<int>){
