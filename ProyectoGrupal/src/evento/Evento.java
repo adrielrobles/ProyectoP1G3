@@ -37,17 +37,13 @@ public class Evento {
     
 }
  public boolean validarTiempo(Date fecha,int intervaloTiempo) {
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         boolean tiempoValido = false;
         Date fechaInicial = new Date();
         int dias = (int) ((fecha.getTime() - fechaInicial.getTime()) / (86400000));//1dia tiene 86400000
         if (dias>intervaloTiempo){
             tiempoValido= true;
         }
-        
         return tiempoValido;
-       
     }
 
     public Date getFecha() {

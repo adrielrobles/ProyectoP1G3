@@ -17,7 +17,7 @@ public class Main {
      * Metodo main para incializar el programa.
      * @param args 
      */
-    public static void main(String[] args) throws ParseException{
+    public static void main(String[] args){
         Sistema eventPro = new Sistema();
         eventPro.iniciar();
 }

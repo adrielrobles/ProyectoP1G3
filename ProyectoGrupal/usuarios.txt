@@ -1,1 +1,3 @@
 Adriel,robles,adropere,1234,C,09537,Mapasingue este
+Tatiana,yepez,tatiana,1234,P
+Jose,lopez,joseP,1234,P

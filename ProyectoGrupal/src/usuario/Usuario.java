@@ -5,6 +5,8 @@
  */
 package usuario;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author ErikaVilla
@@ -15,6 +17,8 @@ public abstract class Usuario {
     protected String usuario;
     protected String contrasena;
     protected char tipo;
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
     //GETTERS
 
     public String getNombre() {

@@ -21,12 +21,13 @@ import evento.Evento;
  */
 public class Sistema {
    private static ArrayList<Usuario> usuarios = new ArrayList<>();
-   public static ArrayList<Usuario> getUsuarios(){
-    return usuarios;   
-   }
     static Scanner sc = new Scanner(System.in);
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     boolean fechaValidada = false;
+   public static ArrayList<Usuario> getUsuarios(){
+    return usuarios;   
+   }
+   
     /**
      * Metodo menuprincipal va a retornar el ususario con el cual vamos a trabajr en el sistema.
      * @return Usuario
@@ -54,11 +55,12 @@ public class Sistema {
      * ademas de acceder a una condicion si es Cliente o planificador.
      * @return void
      */
-    public void iniciar() throws ParseException{
+    public void iniciar(){
         Usuario usuario = menuprincipal();
         String opcion="";
         String opcion2="";
         if(usuario.getTipo()=='C'){
+            Cliente usuarioC = (Cliente)usuario;
             while(!(opcion.equals("3"))){
               System.out.println("1. Solicitar Planificacion De Evento");
               System.out.println("2. Registar Pago Evento ");
@@ -67,10 +69,10 @@ public class Sistema {
               opcion = sc.nextLine();
               switch (opcion){
                 case "1":
-                    System.out.println("/*********Nueva Solicitud**********/");
-                    System.out.println("/*                                    */");
+                    System.out.println("/*********Nueva Solicitud***********/");
+                    System.out.println("/*                                 */");
                     System.out.println("/***********************************/");
-                        System.out.println("Bienvenid@ " + usuario.getNombre());//agreue
+                        System.out.println("Bienvenid@ " + usuarioC.getNombre());//agreue
                         System.out.println("");
                         System.out.println("TIPO DE EVENTO (Elija)");
                         System.out.println("1. Boda ");
@@ -78,115 +80,54 @@ public class Sistema {
                         System.out.println("3. Fiesta Empresarial ");
                         System.out.print("Seleccione opcion: ");
                         opcion2 = sc.nextLine();
-                        switch (opcion2) {
+                        Date fechaE = new Date();
+                        Date fechaS = new Date();
+                        String registraSol;
+                        switch (opcion2) {    
                             case "1":
                                 System.out.println("/*********EVENTO BODA**********/");
                                 System.out.println("                                ");
-                                Solicitud solicitudFecha = null;
-
-                                while (fechaValidada == false) {
-                                    System.out.println("Fecha del evento: ");
-                                    String fechax = sc.nextLine();
-                                    Date fecha = formato.parse(fechax);
-                                    //solicitudFecha.getFechaEvento();
-
-                                    boolean validafecha = new Evento().validarTiempo(fecha, 304);
-
-                                    if (validafecha) {
-                                        System.out.println("¡Fecha valida!");
-                                        System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
-                                        fechaValidada = true;
-
-                                    } else {
-                                        System.out.println("**La fecha es muy proxima. Para este tipo de evento debemos tener\tpor lo menos 10 meses para planificar. Ingrese nuevamente");
-
-                                    }
-                                }
-                    // generar planificador aleatorio (usuario verificado como planificador)
-                    // preguntar datos necesarios para la solicitud
-                    //solicitudes.generarCodigo();
-                    //crear  el objeto solicitud con los datos anteriores
-                    // el planificador debe registrar evento como pendiente con la solicitud
-                    //registrar en txt
-                   
+                                fechaE = ingresarFecha(304);
                                 System.out.println("¿Desea registrar su solicitud?: ");
-                                String registraSol = sc.nextLine();
-                                switch(registraSol){
-                                case "S":
-                                
-                                
-                        }
-                                
+                                registraSol = sc.nextLine();
+                                switch(registraSol.toUpperCase()){
+                                    case "S":
+                                        usuarioC.generarSolicitud(fechaE,fechaS,"BODA",usuarioC);
+                                        break;
+                                    default:
+                                        System.out.println("No se genero Solicitud.");
+                                }
                                 break;
-
-
-
                             case "2":
                                 System.out.println("/*********EVENTO FIESTA INFANTIL**********/");
                                 System.out.println("                                           ");
-                                Solicitud solicitudFecha1 = null;
-
-                                while (fechaValidada == false) {
-                                    System.out.println("Fecha del evento: ");
-                                    String fechax = sc.nextLine();
-                                    Date fecha = formato.parse(fechax);
-                                   
-                                    boolean validafecha = new Evento().validarTiempo(fecha, 21);
-
-                                    if (validafecha) {
-                                        System.out.println("¡Fecha valida!");
-                                        System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
-                                        fechaValidada = true;
-
-                                    } else {
-                                        System.out.println("**La fecha es muy proxima. Para este tipo de evento debemos tener\tpor lo menos 10 meses para planificar. Ingrese nuevamente");
-
-                                    }
-                                }
+                                fechaE = ingresarFecha(21);
                                 System.out.println("¿Desea registrar su solicitud?: ");
-                                String registraSo = sc.nextLine();
-                                switch(registraSo){
-                                case "S":
-                           
-                        }
+                                registraSol = sc.nextLine();
+                                switch(registraSol.toUpperCase()){
+                                    case "S":
+                                        usuarioC.generarSolicitud(fechaE,fechaS,"INFANTIL",usuarioC);
+                                        break;
+                                    default:
+                                        System.out.println("No se genero Solicitud.");
+                                }
                                 break;
-
-
                             case "3":
                                 System.out.println("/*********EVENTO FIESTA EMPRESARIAL**********/");
                                 System.out.println("                                              ");
-                                Solicitud solicitudFecha2 = null;
-
-                                while (fechaValidada == false) {
-                                    System.out.println("Fecha del evento: ");
-                                    String fechax = sc.nextLine();
-                                    Date fecha = formato.parse(fechax);
-                                    
-                                    
-                                    boolean validafecha = new Evento().validarTiempo(fecha, 60);
-
-                                    if (validafecha) {
-                                        System.out.println("¡Fecha valida!");
-                                        System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
-                                        fechaValidada = true;
-
-                                    } else {
-                                        System.out.println("**La fecha es muy proxima. Para este tipo de evento debemos tener\tpor lo menos 10 meses para planificar. Ingrese nuevamente");
-
-                                    }
-                                }
+                                fechaE = ingresarFecha(60);
                                 System.out.println("¿Desea registrar su solicitud?: ");
-                                String registraS = sc.nextLine();
-                                switch(registraS){
-                                case "S":
-              
+                                registraSol = sc.nextLine();
+                                switch(registraSol.toUpperCase()){
+                                    case "S":
+                                        usuarioC.generarSolicitud(fechaE,fechaS,"EMPRESARIAL",usuarioC);
+                                        break;
+                                    default:
+                                        System.out.println("No se genero Solicitud.");
+                                }
+                                break;
                                 
                         }
-                                break;
-                            default:
-                                System.out.println("Opcion No valida!!, vuelva a ingresar");
-                        }
-                        break;
 
                     case "2":
                         System.out.println("/*********Registrar Pago Evento**********/");
@@ -288,11 +229,38 @@ public class Sistema {
             }           
         }        
     }
-
+    /**
+     * Metodo para ingresar la fecha y poder validar la sintaxis, ademas de validar de segun el evento que se escoja en el menu principal
+     * todo esto se lograr por medio del try catch para validar la sintaxis y asi pasar a poder verificar si la fecha esta de acuerdo con los 
+     * parametros de los eventos.
+     * @param numero
+     * @return fecha
+     */
+    private Date ingresarFecha(int numero){
+        boolean validacion=false;
+        while(validacion==false){
+        System.out.println("Fecha del evento: ");
+        String fechax = sc.nextLine();
+        try{
+            Date fecha = formato.parse(fechax);
+            boolean validafecha = new Evento().validarTiempo(fecha, numero);
+            if (validafecha) {
+                System.out.println("¡Fecha valida!");
+                System.out.println("Ha registrado todos los datos necesarios para la solicitud ");
+                return fecha;
+            }
+            else {
+                if(numero == 304)
+                System.out.println("**La fecha es muy proxima. Para este tipo de evento debemos tener\tpor lo menos 10 meses para planificar. Ingrese nuevamente");
+                else if (numero==21)
+                System.out.println("**La fecha es muy proxima. Para este tipo de evento debemos tener\tpor lo menos 10 meses para planificar. Ingrese nuevamente");
+                else if (numero==60)
+                System.out.println("**La fecha es muy proxima. Para este tipo de evento debemos tener\tpor lo menos 10 meses para planificar. Ingrese nuevamente");
+            }            
+        }catch(Exception e){
+            System.out.println("Ingrese la sintaxis de fecha correcta");
+        }
+        }
+        return null;
+    }
 }
-
-//comentario
-//Menu main = new Menu();
-//Menu.presentarMenuUsuario();
-//Menu.presentarMenuPlanificador();
-

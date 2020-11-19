@@ -6,10 +6,13 @@
 package usuario;
 
 import ManejoArchivo.ManejoArchivos;
+import evento.Evento;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import tipos.TipoEstadoS;
+import tipos.TipoEvento;
 
 /**
  *
@@ -32,12 +35,22 @@ public class Cliente extends Usuario {
      * @param telefono
      * @param correoElectronico 
      */
+    /**
+     * Constructor que reciba toda la informacion de cliente mas dos elementos adicionales que serian telefon y correoElectronico.
+     * @param nombre
+     * @param apellido
+     * @param usuario
+     * @param contrasena
+     * @param tipo
+     * @param telefono
+     * @param correoElectronico 
+     */
     public Cliente(String nombre, String apellido, String usuario, String contrasena, char tipo,int telefono, String correoElectronico) {
         super(nombre, apellido, usuario, contrasena, tipo);
         this.telefono=telefono;
         this.correoElectronico=correoElectronico;
     }
-    //GETTERS
+    //GETTERS 
 
     public int getTelefono() {
         return telefono;
@@ -56,39 +69,28 @@ public class Cliente extends Usuario {
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
+    /**
+     * Metodo generarSolicitud el cual consiste donde el cliente va a ingresar la fecha del evento con su correspondiente fecha de
+     * solicitud generada en el instante y el respectivo cliente, ademas de guardarla en el archivo solicitudes.txt las informaciones
+     * respectivas y mostrara un mensaje de la solicitud registrada con un toString de la clase Solicitudes.
+     * @param fechaE
+     * @param fechaS
+     * @param evento
+     * @param cliente 
+     */
+    public void generarSolicitud(Date fechaE,Date fechaS,String evento,Cliente cliente){
+        Solicitud solicitud = new Solicitud(cliente,fechaE,fechaS,evento);
+        String linea=solicitud.getId_solicitud()+","+nombre+","+solicitud.getPlanificador().getNombre()+","+formato.format(fechaS)+","+formato.format(fechaE)+","+solicitud.getEstado()+","+solicitud.getTipoEvento();
+        ManejoArchivos.EscribirArchivo("solicitudes.txt",linea);
+        System.out.println("/***********SOLICITUD REGISTRADA***********/");
+        System.out.println("/*                                      */");
+        System.out.println("/******************************************/");
+        System.out.print(solicitud.toString());
+        System.out.println("**Se ha registrado su solicitud, pronto el planificador se conectara con usted por \n telefono o video conferencia para completar el proceso de recoleccion de datos.\n");
+        }                          
     
-    
-//    private void agregarSolicitud() {
-//        String linea = "";
-//        Solicitud solNueva = null;
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//        String codigo = solNueva.generarCodigo();
-//        String nombreC = solNueva.cliente.getNombre();
-//        String nomPlanificador = solNueva.planificador.getNombre();
-//        Date fechasSol = solNueva.getFechaEvento();
-//        String fechasSoli = sdf.format(fechasSol);
-//        Date fechaEven = solNueva.getFechaSolicitud();
-//        String fechaEven1 = sdf.format(fechaEven);
-//        String estado = TipoEstadoS.PENDIENTE.toString();
-//        //solicitudes.add(codigo);
-//        solicitudes.add(nombreC);
-//        solicitudes.add(nomPlanificador);
-//        solicitudes.add(fechasSoli);
-//        solicitudes.add(fechaEven1);
-//        ManejoArchivos.EscribirArchivo("solicitudes.txt",linea  );
-//
-//    }
-    public Solicitud generarSolicitud(){
-        
-        
-        return null;
-        
-    }
     public OrdenPago generarPago(String codOrden){
         return null;
-        
     }
-    
-    
-
-}
+    }
+   
