@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import tipos.TipoEstadoS;
+import Sistema.*;
 
 /**
  *
@@ -43,29 +44,33 @@ public class Solicitud {
         return fechaEvento;
     }
 
-    public Solicitud(String id_solicitud, Cliente cliente, Planificador planificador, Date fechaSolicitud, Date fechaEvento, TipoEstadoS estado) {
-        this.id_solicitud = id_solicitud;
+    public Solicitud( Cliente cliente, Date fechaSolicitud, Date fechaEvento, TipoEstadoS estado) {
+    
         this.cliente = cliente;
-        this.planificador = planificador;
+        id_solicitud = generarCodigo();
+        planificador = buscarPlanificador();   
         this.fechaSolicitud = fechaSolicitud;
         this.fechaEvento = fechaEvento;
         this.estado = estado;
     }
 
-    public String generarCodigo() {
-        double codigo = Math.random() * (100);  // Esto da valores entre 0.0 y 7.0 excluido el 7.0
+    private String generarCodigo() {
+        double codigo = Math.random() * (100);  
         String codigos = Double.toString(codigo);
         return codigos;
 
     }
 
-    public Planificador buscarPlanificador(ArrayList<Planificador> planificador) {
+    public Planificador buscarPlanificador() {
         ArrayList<Planificador> unPlanificador = new ArrayList<>();
+        for (Usuario p: Sistema.getUsuarios()){
+            if (p.getTipo()=='P'){
+                unPlanificador.add((Planificador)p);
+            }
+        }
         Random rand = new Random();
         int posicion = rand.nextInt(unPlanificador.size());
         Planificador elegidoPlanificador = unPlanificador.get(posicion);
         return elegidoPlanificador;
-
     }
-
 }

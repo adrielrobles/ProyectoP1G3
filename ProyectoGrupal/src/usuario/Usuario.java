@@ -10,11 +10,11 @@ package usuario;
  * @author ErikaVilla
  */
 public abstract class Usuario {
-    public String nombre;
-    public String apellido;
-    public String usuario;
-    public String contrasena;
-    public char tipo;
+    protected String nombre;
+    protected String apellido;
+    protected String usuario;
+    protected String contrasena;
+    protected char tipo;
     //GETTERS
 
     public String getNombre() {

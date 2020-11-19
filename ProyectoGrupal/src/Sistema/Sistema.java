@@ -6,23 +6,24 @@
 package Sistema;
 
 import java.util.ArrayList;
-import usuario.Usuario;
+import usuario.*;
 import java.util.Scanner;
 import ManejoArchivo.ManejoArchivos;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import usuario.Cliente;
-import usuario.Solicitud;
 import evento.Evento;
+
 
 /**
  *
  * @author ErikaVilla
  */
 public class Sistema {
-   ArrayList<Usuario> usuarios = new ArrayList<>();
-
+   private static ArrayList<Usuario> usuarios = new ArrayList<>();
+   public static ArrayList<Usuario> getUsuarios(){
+    return usuarios;   
+   }
     static Scanner sc = new Scanner(System.in);
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     boolean fechaValidada = false;
@@ -57,7 +58,7 @@ public class Sistema {
         Usuario usuario = menuprincipal();
         String opcion="";
         String opcion2="";
-        if(usuario.tipo=='C'){
+        if(usuario.getTipo()=='C'){
             while(!(opcion.equals("3"))){
               System.out.println("1. Solicitar Planificacion De Evento");
               System.out.println("2. Registar Pago Evento ");
@@ -69,7 +70,7 @@ public class Sistema {
                     System.out.println("/*********Nueva Solicitud**********/");
                     System.out.println("/*                                    */");
                     System.out.println("/***********************************/");
-                        System.out.println("Bienvenid@ " + usuario.nombre);//agreue
+                        System.out.println("Bienvenid@ " + usuario.getNombre());//agreue
                         System.out.println("");
                         System.out.println("TIPO DE EVENTO (Elija)");
                         System.out.println("1. Boda ");
@@ -203,7 +204,7 @@ public class Sistema {
             }
         } else if (usuario.getTipo() == 'P') {
             while (!opcion.equals("5")) {
-                System.out.println("Bienvenid@ " + usuario.nombre);
+                System.out.println("Bienvenid@ " + usuario.getNombre());
                 System.out.println(" ");
                 System.out.println("1.Consultar Solicitudes Pendientes ");
                 System.out.println("2. Registrar Evento");
@@ -282,7 +283,10 @@ public class Sistema {
             if (listusuario[4].equals("C")) {
                 usuarios.add(new Cliente(listusuario[0], listusuario[1], listusuario[2], listusuario[3], listusuario[4].charAt(0), Integer.parseInt(listusuario[5]), listusuario[6]));
             }
-        }
+            else{
+                usuarios.add(new Planificador(listusuario[0], listusuario[1], listusuario[2], listusuario[3], listusuario[4].charAt(0)));
+            }           
+        }        
     }
 
 }

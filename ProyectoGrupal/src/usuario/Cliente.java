@@ -20,8 +20,8 @@ import tipos.TipoEstadoS;
  * @author Adriel Robles
  */
 public class Cliente extends Usuario {
-    private int telefono;
-    private String correoElectronico;
+    protected int telefono;
+    protected String correoElectronico;
     /**
      * Se crea constructor para poder darle valores a los atributos de Cliente
      * @param nombre
@@ -37,24 +37,47 @@ public class Cliente extends Usuario {
         this.telefono=telefono;
         this.correoElectronico=correoElectronico;
     }
-    private void agregarSolicitud() {
-        ArrayList<String> solicitudes = ManejoArchivos.LeeFichero("solicitudes.txt");
-        Solicitud solNueva = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String codigo = solNueva.generarCodigo();
-        String nombreC = solNueva.cliente.getNombre();
-        String nomPlanificador = solNueva.planificador.getNombre();
-        Date fechasSol = solNueva.getFechaEvento();
-        String fechasSoli = sdf.format(fechasSol);
-        Date fechaEven = solNueva.getFechaSolicitud();
-        String fechaEven1 = sdf.format(fechaEven);
-        String estado = TipoEstadoS.PENDIENTE.toString();
-        solicitudes.add(codigo);
-        solicitudes.add(nombreC);
-        solicitudes.add(nomPlanificador);
-        solicitudes.add(fechasSoli);
-        solicitudes.add(fechaEven1);
+    //GETTERS
+
+    public int getTelefono() {
+        return telefono;
     }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+    
+    // SETTERS
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+    
+    
+//    private void agregarSolicitud() {
+//        String linea = "";
+//        Solicitud solNueva = null;
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//        String codigo = solNueva.generarCodigo();
+//        String nombreC = solNueva.cliente.getNombre();
+//        String nomPlanificador = solNueva.planificador.getNombre();
+//        Date fechasSol = solNueva.getFechaEvento();
+//        String fechasSoli = sdf.format(fechasSol);
+//        Date fechaEven = solNueva.getFechaSolicitud();
+//        String fechaEven1 = sdf.format(fechaEven);
+//        String estado = TipoEstadoS.PENDIENTE.toString();
+//        //solicitudes.add(codigo);
+//        solicitudes.add(nombreC);
+//        solicitudes.add(nomPlanificador);
+//        solicitudes.add(fechasSoli);
+//        solicitudes.add(fechaEven1);
+//        ManejoArchivos.EscribirArchivo("solicitudes.txt",linea  );
+//
+//    }
     public Solicitud generarSolicitud(){
         
         

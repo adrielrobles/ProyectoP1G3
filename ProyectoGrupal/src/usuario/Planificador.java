@@ -7,6 +7,7 @@ package usuario;
 
 import evento.Evento;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -38,6 +39,19 @@ public class Planificador extends Usuario {
         return null;
         
         
+    }
+     public Planificador buscarPlanificador(ArrayList<Usuario> planificador) {
+        ArrayList<Planificador> unPlanificador = new ArrayList<>();
+        for (Usuario p: planificador){
+            if (p.getTipo()=='P'){
+                planificador.add(p);
+            }
+        }
+        Random rand = new Random();
+        int posicion = rand.nextInt(unPlanificador.size());
+        Planificador elegidoPlanificador = unPlanificador.get(posicion);
+        return elegidoPlanificador;
+
     }
     
 }
