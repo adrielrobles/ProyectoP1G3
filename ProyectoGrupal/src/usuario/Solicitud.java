@@ -29,6 +29,7 @@ public class Solicitud {
     private TipoEstadoS estado;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     
+    
 /**
  * Contructor para crear una solicitud con respectivos parametros como cliente, fecha solicitud, fecha evento, tipo de evento
  * donde se puede observar que el id de solicitud se crea con el metodo generarCodigo y el planificador se le asignada aleatoriamente
@@ -47,6 +48,17 @@ public class Solicitud {
         estado = TipoEstadoS.PENDIENTE;
         this.tipoEvento = TipoEvento.valueOf(tipoevento);
 
+    }
+    public Solicitud(String id_solicitud,Cliente cliente,Planificador planificador, Date fechaSolicitud,Date fechaEvento, String estado,String tipoEvento) {
+        this.id_solicitud = id_solicitud;
+        this.planificador=planificador;
+        this.cliente=cliente;
+        this.fechaSolicitud= fechaSolicitud;
+        this.fechaEvento=fechaEvento;
+        this.estado=TipoEstadoS.valueOf(estado);
+        this.tipoEvento=TipoEvento.valueOf(tipoEvento);
+        
+        
     }
     //Getters y Setters
     
@@ -144,6 +156,7 @@ public class Solicitud {
         Planificador elegidoPlanificador = unPlanificador.get(posicion);
         return elegidoPlanificador;
     }
+   
 
     public String toString() {
         return "CLIENTE: " + cliente.getNombre().toUpperCase()+" "+cliente.getApellido().toUpperCase()+"\nPLANIFICADOR ASIGNADO:"+
@@ -151,5 +164,6 @@ public class Solicitud {
                 formato.format(fechaSolicitud)+"\nTIPO EVENTO: "+tipoEvento+"\nFECHA EVENTO: "+formato.format(fechaEvento)+"\n";
              
     }
+   
     
 }
