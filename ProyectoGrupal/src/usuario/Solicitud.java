@@ -49,6 +49,16 @@ public class Solicitud {
         this.tipoEvento = TipoEvento.valueOf(tipoevento);
 
     }
+     /**
+     * Se agrego un constructor para generar las solicitudes al momento de leer el archivo solicitud
+     * @param id_solicitud
+     * @param cliente
+     * @param planificador
+     * @param fechaSolicitud
+     * @param fechaEvento
+     * @param estado
+     * @param tipoEvento 
+     */
     public Solicitud(String id_solicitud,Cliente cliente,Planificador planificador, Date fechaSolicitud,Date fechaEvento, String estado,String tipoEvento) {
         this.id_solicitud = id_solicitud;
         this.planificador=planificador;
