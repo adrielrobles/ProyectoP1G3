@@ -141,9 +141,9 @@ public class Solicitud {
          for(String linea: ManejoArchivos.LeeFichero("solicitudes.txt")){
             listaC.add(linea.split(",")[0]);
         }
-        while(validacion=false){
+        while(validacion==false){
         double codigo = Math.random() * (100);  
-        if(listaC.contains(codigo)){
+        if(listaC.contains(String.valueOf(codigo))){
             validacion=false;
         }
         else{
@@ -167,7 +167,10 @@ public class Solicitud {
         return elegidoPlanificador;
     }
    
-
+/**
+ * Metodo para presentar la solicitud en el sistema.
+ * @return 
+ */
     public String toString() {
         return "CLIENTE: " + cliente.getNombre().toUpperCase()+" "+cliente.getApellido().toUpperCase()+"\nPLANIFICADOR ASIGNADO:"+
                 planificador.getNombre().toUpperCase()+" "+planificador.getApellido().toUpperCase()+"\nFECHA REGISTRO: "+

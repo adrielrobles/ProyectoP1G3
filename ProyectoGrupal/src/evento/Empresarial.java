@@ -5,15 +5,37 @@
  */
 package evento;
 
+import java.util.Date;
+import tipos.TipoEvento;
+import usuario.Cliente;
+import usuario.Planificador;
+
 /**
  *
  * @author ErikaVilla
  */
-public class Empresarial {
-    private double precioBase= 200;
-    private boolean transporte;
+public class Empresarial extends Evento{
+    private final double precioBase= 200;
     private int cantidadPersonas;
-    public static void mostarMensaje(){
-        
+/**
+ * Constructor creado al momento de ingresar como evento Empresarial con su respectivo precio Base.
+ * @param fecha
+ * @param cliente
+ * @param planificador
+ * @param tipoEvento 
+ */
+    public Empresarial(Date fecha, Cliente cliente, Planificador planificador,TipoEvento tipoEvento) {
+        super(fecha, cliente, planificador,tipoEvento);
+        precioTotal= precioBase;
     }
+
+    public int getCantidadPersonas() {
+        return cantidadPersonas;
+    }
+
+    public void setCantidadPersonas(int cantidadPersonas) {
+        this.cantidadPersonas = cantidadPersonas;
+    }
+    
+    
 }

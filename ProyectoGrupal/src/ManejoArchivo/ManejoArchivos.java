@@ -7,6 +7,7 @@ package ManejoArchivo;
  */
 import java.io.*;
 import java.util.ArrayList;
+import usuario.Solicitud;
 
 /**
  *
@@ -76,6 +77,39 @@ public class ManejoArchivos {
             }
         }
     }
-
-   
+    /**
+     * Creacion del metodo sobreescrituraA para sobrescibrir en el archivo solicitudes, es decir cambiar del tipo de estado PENDIENTE a
+     * APROBADP.
+     * @param nombreArchivo
+     * @param solicitudes 
+     */
+    public static void sobrescrituraA(String nombreArchivo,ArrayList<Solicitud> solicitudes){
+        ArrayList<String> lista = LeeFichero(nombreArchivo);
+        ArrayList<String> nuevaLista = new ArrayList<>();
+        for (String linea:lista){
+            String listsoli[] = linea.split(",");
+            for(Solicitud lineaS:solicitudes){
+                String lineaN="";
+                if(String.valueOf(lineaS.getEstado()).equals("APROBADO")&&listsoli[0].equals(lineaS.getId_solicitud())&&listsoli[2].equals(lineaS.getPlanificador().getNombre())){
+                    listsoli[5] = String.valueOf(lineaS.getEstado());
+                    for(String lineaN2:listsoli){
+                        System.out.println(lineaN2);
+                        if(lineaN.length()==0)
+                            lineaN = lineaN2;
+                        else
+                            lineaN=lineaN+","+lineaN2;
+                    }
+                    nuevaLista.add(lineaN);
+                }
+                }
+            if(listsoli[5].equals("PENDIENTE")){
+                nuevaLista.add(linea);
+            }
+        }
+        File fichero = new File(nombreArchivo);
+        fichero.delete();
+        for(String lineaA:nuevaLista){
+        EscribirArchivo(nombreArchivo,lineaA);
+        }        
+    }
 }

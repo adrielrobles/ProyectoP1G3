@@ -87,8 +87,7 @@ public class Cliente extends Usuario {
         System.out.println("/******************************************/");
         System.out.print(solicitud.toString());
         System.out.println("**Se ha registrado su solicitud, pronto el planificador se conectara con usted por \n telefono o video conferencia para completar el proceso de recoleccion de datos.\n");
-        }                          
-    
+        }                        
     public OrdenPago generarPago(String codOrden){
         return null;
     }
