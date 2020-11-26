@@ -134,10 +134,40 @@ public class Sistema {
                         }
 
                     case "2":
+                        usuarioC.OrdenesDePago();;
                         System.out.println("/*********Registrar Pago Evento**********/");
                         System.out.println("/                                        /");
                         System.out.println("/****************************************/");
+                        if (usuarioC.recuperarCodO().size()!=0){                            
+                        for(String codirecu: usuarioC.recuperarCodO()){
+                             System.out.println("Su orden con codigo "+ codirecu +" esta pendiente de pago");
+                             String caso= "";
+                             while(!caso.equals("N")){
+                             System.out.print("¿Desea registrar pago ahora? (S/N): ");
+                             caso= sc.nextLine();
+                             switch (caso){
+                             case "S":
+                                 Date fecha= new Date();
+                                 System.out.print("Ingrese codigo de transaccion: ");
+                                 String codTran= sc.nextLine();
+                                 usuarioC.generarPago(codTran, codirecu, fecha);
+                                 caso="N";
+                                 break;
+                             case "N":
+                                 System.out.println("No se registro pago.");
+                                 break;
+                             default:
+                                 System.out.println("INGRESO INCORRECTO!!---Utilize S o N");
+                             } 
+                             }
+                        }
+                        }else{
+                            System.out.println("Usted no posee eventos a pagar");
+                        }
+                        ManejoArchivos.sobrescrituraA( usuarioC.getOrdenPago(),"ordenPago.txt");
                         break;
+
+
                     case "3":
                         System.out.println("Acaba de salir ");
                         System.out.println("                                   ");
@@ -379,7 +409,7 @@ public class Sistema {
         String fechax = sc.nextLine();
         try{
             Date fecha = formato.parse(fechax);
-            boolean validafecha = new Evento().validarTiempo(fecha, numero);
+            boolean validafecha = Evento.validarTiempo(fecha, numero);
             if (validafecha) {
                 System.out.println("¡Fecha valida!");
                 System.out.println("Ha registrado todos los datos necesarios para la solicitud ");

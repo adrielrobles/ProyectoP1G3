@@ -5,6 +5,7 @@
  */
 package usuario;
 
+import Sistema.Sistema;
 import java.text.SimpleDateFormat;
 
 /**
@@ -72,8 +73,20 @@ public abstract class Usuario {
         this.tipo = tipo;
     }
     
-    
-
+     public static Cliente buscarCliente(String nombre){
+         for(Usuario u:Sistema.getUsuarios()){
+             if(u.getNombre().equals(nombre)&&(u.getTipo()=='C')){
+                 return (Cliente)u;
+             }
+         }return null;
+    }  
+    public static Planificador buscarPlanificador(String nombre){
+         for(Usuario u:Sistema.getUsuarios()){
+             if(u.getNombre().equals(nombre)&&(u.getTipo()=='P')){
+                 return (Planificador)u;
+             }
+         }return null;
+    }  
 
     
 }

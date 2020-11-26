@@ -6,6 +6,7 @@
 package evento;
 
 import ManejoArchivo.ManejoArchivos;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ import tipos.TipoEvento;
 import usuario.Cliente;
 import usuario.Planificador;
 import usuario.Solicitud;
+import usuario.Usuario;
 
 /**
  *
@@ -35,6 +37,8 @@ public class Evento {
     protected TipoEstadoE estado;
     protected ArrayList<Adicional> elementos_ad = new ArrayList<>();
     protected Adicional preadicional;
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat formatoh = new SimpleDateFormat("HH:mm");
     /**
      * Constructor que se crea cuando el planificador consulta la solicitud.
      * @param fecha
@@ -53,6 +57,23 @@ public class Evento {
 
     public Evento() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Evento(String codigoEvento, String cliente, String tipoEvento,String fecha,String hora_Ini, String hora_Fin, String capacidad, String planificador, String estado, String lugar){
+        this.codigoEvento =codigoEvento;
+        this.cliente = Usuario.buscarCliente(cliente);
+        this.tipoEvento= TipoEvento.valueOf(tipoEvento);
+        try {
+            this.hora_Ini= formato.parse(hora_Ini);
+            this.hora_Fin=formato.parse(hora_Fin);
+            this.fecha= formato.parse(fecha);
+        } catch (ParseException ex) {
+            System.out.println("");
+        }
+        this.capacidad=Integer.parseInt(capacidad);
+        this.planificador= Usuario.buscarPlanificador(planificador);
+        this.estado= TipoEstadoE.valueOf(estado);
+        this.lugar=lugar; 
     }
     // GETTERS Y SETTERS 
 
@@ -219,7 +240,7 @@ public class Evento {
      * @param intervaloTiempo
      * @return 
      */
-     public boolean validarTiempo(Date fecha,int intervaloTiempo) {
+     public static boolean validarTiempo(Date fecha,int intervaloTiempo) {
         boolean tiempoValido = false;
         Date fechaInicial = new Date();
         int dias = (int) ((fecha.getTime() - fechaInicial.getTime()) / (86400000));//1dia tiene 86400000

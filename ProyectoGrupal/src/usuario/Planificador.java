@@ -206,10 +206,10 @@ public class Planificador extends Usuario {
                 Boda boda = (Boda) evento;
                 String vehiculo ="";
                 if(boda.isVehiculo()){
-                    vehiculo="Si Aplica";
+                    vehiculo="SI APLICA";
                 }
                 else 
-                    vehiculo="No Aplica";
+                    vehiculo="NO APLICA";
                 String lineaB=boda.getCodigoEvento()+","+boda.getCliente().getNombre()+","+boda.getTipoEvento()+","+formato.format(boda.getFecha())+","+formatoh.format(boda.getHora_Ini())+","+formatoh.format(boda.getHora_Fin())+","+boda.getCapacidad()+","+boda.getPlanificador().getNombre()+","+boda.getEstado()+","+boda.getLugar()+","+vehiculo;
                 ManejoArchivos.EscribirArchivo("eventos.txt",lineaB);
                 evento.crearAdicionales();
@@ -224,10 +224,10 @@ public class Planificador extends Usuario {
                 Infantil infantil = (Infantil) evento;
                 String juegos ="";
                 if(infantil.isJuegos()){
-                    vehiculo="Si Aplica";
+                    juegos="SI APLICA";
                 }
                 else 
-                    vehiculo="No Aplica";
+                    juegos="NO APLICA";
                 String lineaI=infantil.getCodigoEvento()+","+infantil.getCliente().getNombre()+","+infantil.getTipoEvento()+","+infantil.getFecha()+","+formatoh.format(infantil.getHora_Ini())+","+formatoh.format(infantil.getHora_Fin())+","+infantil.getCapacidad()+","+infantil.getPlanificador().getNombre()+","+infantil.getEstado()+","+infantil.getLugar()+","+infantil.getCantidadDisfrazados()+","+infantil.getCantidadSorpresas()+","+juegos;
                 ManejoArchivos.EscribirArchivo("eventos.txt",lineaI);
                 evento.crearAdicionales();
@@ -247,24 +247,18 @@ public class Planificador extends Usuario {
          System.out.print(ordenPago.toString());
      }
      
-     public Planificador buscarPlanificador(ArrayList<Usuario> planificador) {
-        ArrayList<Planificador> unPlanificador = new ArrayList<>();
-        for (Usuario p: planificador){
-            if (p.getTipo()=='P'){
-                planificador.add(p);
-            }
-        }
-        Random rand = new Random();
-        int posicion = rand.nextInt(unPlanificador.size());
-        Planificador elegidoPlanificador = unPlanificador.get(posicion);
-        return elegidoPlanificador;
-    }
-     public Cliente buscarCliente(String nombre){
-         for(Usuario u:Sistema.getUsuarios()){
-             if(u.getNombre().equals(nombre)&&(u.getTipo()=='C')){
-                 return (Cliente)u;
-             }
-         }return null;
-    }
+//     public Planificador buscarPlanificador(ArrayList<Usuario> planificador) {
+//        ArrayList<Planificador> unPlanificador = new ArrayList<>();
+//        for (Usuario p: planificador){
+//            if (p.getTipo()=='P'){
+//                planificador.add(p);
+//            }
+//        }
+//        Random rand = new Random();
+//        int posicion = rand.nextInt(unPlanificador.size());
+//        Planificador elegidoPlanificador = unPlanificador.get(posicion);
+//        return elegidoPlanificador;
+//    }
+
     
 }

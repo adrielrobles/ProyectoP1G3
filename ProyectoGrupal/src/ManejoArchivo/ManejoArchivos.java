@@ -6,7 +6,11 @@ package ManejoArchivo;
  * and open the template in the editor.
  */
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import usuario.OrdenPago;
 import usuario.Solicitud;
 
 /**
@@ -14,6 +18,7 @@ import usuario.Solicitud;
  * @author Adriel Robles
  */
 public class ManejoArchivos {
+
 
     public static ArrayList<String> LeeFichero(String nombrearchivo) {
         ArrayList<String> lineas = new ArrayList<>();
@@ -103,6 +108,38 @@ public class ManejoArchivos {
                 }
                 }
             if(listsoli[5].equals("PENDIENTE")){
+                nuevaLista.add(linea);
+            }
+        }
+        File fichero = new File(nombreArchivo);
+        fichero.delete();
+        for(String lineaA:nuevaLista){
+        EscribirArchivo(nombreArchivo,lineaA);
+        }        
+    }
+    public static void sobrescrituraA(ArrayList<OrdenPago> orden, String nombreArchivo){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        ArrayList<String> lista = LeeFichero(nombreArchivo);
+        ArrayList<String> nuevaLista = new ArrayList<>();
+        for (String linea:lista){
+            List<String> listcod = new ArrayList();
+            String listsoli[] = linea.split(",");
+            for(OrdenPago lineaS:orden){
+                String lineaN="";
+                if(String.valueOf(lineaS.getCodOrden()).equals(listsoli[0])&&listsoli[1].equals(lineaS.getEvento().getCodigoEvento())){                  
+                    listsoli[3] = String.valueOf(lineaS.getEstadoOrden());
+                    listcod = Arrays.asList(listsoli);
+                    for(String lineaN2:listcod){
+                        System.out.println(lineaN2);
+                        if(lineaN.length()==0)
+                            lineaN = lineaN2;
+                        else
+                            lineaN=lineaN+","+lineaN2;
+                    }
+                    nuevaLista.add(lineaN);
+                }
+                }
+            if(listsoli[3].equals("PENDIENTEPAGO")){
                 nuevaLista.add(linea);
             }
         }

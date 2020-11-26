@@ -30,7 +30,17 @@ public class Infantil extends Evento {
         super(fecha, cliente, planificador,tipoEvento);
         precioTotal= precioBase;
     }
-
+    //String lineaI=infantil.getCodigoEvento()+","+infantil.getCliente().getNombre()+","+infantil.getTipoEvento()+","+infantil.getFecha()+","+formatoh.format(infantil.getHora_Ini())+","+formatoh.format(infantil.getHora_Fin())+","+infantil.getCapacidad()+","+infantil.getPlanificador().getNombre()+","+infantil.getEstado()+","+infantil.getLugar()+","+infantil.getCantidadDisfrazados()+","+infantil.getCantidadSorpresas()+","+juegos;
+    public Infantil(String codigoEvento, String cliente, String tipoEvento,String fecha,String hora_Ini, String hora_Fin, String capacidad, String planificador, String estado, String lugar, String cantidadDisfrazados, String cantidadSorpresas, String juegos){
+        super(codigoEvento,cliente,tipoEvento,fecha,hora_Ini,hora_Fin,capacidad,planificador,estado,lugar);    
+        this.cantidadDisfrazados=Integer.parseInt(cantidadDisfrazados);
+        this.cantidadSorpresas=Integer.parseInt(cantidadSorpresas);
+        if (juegos.equalsIgnoreCase("SI APLICA")){
+            this.juegos=true;
+        }else{
+            this.juegos=false;
+        }
+    }
     public int getCantidadDisfrazados() {
         return cantidadDisfrazados;
     }

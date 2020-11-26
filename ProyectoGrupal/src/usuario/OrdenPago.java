@@ -6,6 +6,7 @@
 package usuario;
 
 import ManejoArchivo.ManejoArchivos;
+import evento.*;
 import evento.Evento;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +32,12 @@ public class OrdenPago {
         this.evento = evento;
         totalPagar = evento.getPrecioTotal();
         estadoOrden = TipoEstadoO.PENDIENTEPAGO;
+    }
+    public OrdenPago(String codOrden,String evento, String totalPagar, String estadoOrden){
+        this.codOrden=codOrden;
+        this.evento =conseguirEvento(evento);
+        this.totalPagar=Double.parseDouble(totalPagar);
+        this.estadoOrden=TipoEstadoO.valueOf(estadoOrden);
     }
     //Getters y Setters
 
@@ -111,7 +118,24 @@ public class OrdenPago {
         return "CODIGO PAGO: "+codOrden+"\nCLIENTE: " + evento.getCliente().getNombre().toUpperCase()+"\nEVENTO: "+evento.getTipoEvento()+"\nFECHA EVENTO: "+
                 formato.format(evento.getFecha())+"\nADICIONALES: "+evento.presentarAdici()+"\nTOTAL A PAGAR: "+evento.getPrecioTotal();      
     }
-    
-    
+    //83,Adriel,BODA,12/12/2024,15:00,03:00,200,Jose,PENDIENTE,DURAN,Si Aplica
+    public Evento conseguirEvento(String codigoEvento){
+       ArrayList<String> eventos = ManejoArchivos.LeeFichero("eventos.txt");
+       for(String linea: eventos){
+           String listeventos[]= linea.split(",");
+           switch (listeventos[2]){
+               case "BODA":
+                   return (Evento)new Boda(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10]);                              
+               case "INFANTIL":
+                   return (Evento)new Infantil(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10],listeventos[11],listeventos[12]);
+               case "EMPRESARIAL":
+                   return (Evento)new Empresarial(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10]); 
+                  
+           }
+                   
+       }
+
+      return null;  
+    }
     
 }

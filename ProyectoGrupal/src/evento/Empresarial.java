@@ -28,7 +28,12 @@ public class Empresarial extends Evento{
         super(fecha, cliente, planificador,tipoEvento);
         precioTotal= precioBase;
     }
-
+    //String lineaE=empresarial.getCodigoEvento()+","+empresarial.getCliente().getNombre()+","+empresarial.getTipoEvento()+","+empresarial.getFecha()+","+formatoh.format(empresarial.getHora_Ini())+","+formatoh.format(empresarial.getHora_Fin())+","+empresarial.getCapacidad()+","+empresarial.getPlanificador().getNombre()+","+empresarial.getEstado()+","+empresarial.getLugar()+","+empresarial.getCantidadPersonas();
+                
+    public Empresarial(String codigoEvento, String cliente, String tipoEvento,String fecha,String hora_Ini, String hora_Fin, String capacidad, String planificador, String estado, String lugar, String cantidadPersonas){
+        super(codigoEvento,cliente,tipoEvento,fecha,hora_Ini,hora_Fin,capacidad,planificador,estado,lugar);
+        this.cantidadPersonas=Integer.valueOf(cantidadPersonas);
+    }
     public int getCantidadPersonas() {
         return cantidadPersonas;
     }
