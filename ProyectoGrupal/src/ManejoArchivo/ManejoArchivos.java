@@ -98,7 +98,7 @@ public class ManejoArchivos {
                 if(String.valueOf(lineaS.getEstado()).equals("APROBADO")&&listsoli[0].equals(lineaS.getId_solicitud())&&listsoli[2].equals(lineaS.getPlanificador().getNombre())){
                     listsoli[5] = String.valueOf(lineaS.getEstado());
                     for(String lineaN2:listsoli){
-                        System.out.println(lineaN2);
+                        
                         if(lineaN.length()==0)
                             lineaN = lineaN2;
                         else
@@ -130,7 +130,7 @@ public class ManejoArchivos {
                     listsoli[3] = String.valueOf(lineaS.getEstadoOrden());
                     listcod = Arrays.asList(listsoli);
                     for(String lineaN2:listcod){
-                        System.out.println(lineaN2);
+                        
                         if(lineaN.length()==0)
                             lineaN = lineaN2;
                         else

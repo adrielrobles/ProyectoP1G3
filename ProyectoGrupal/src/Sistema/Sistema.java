@@ -335,6 +335,14 @@ public class Sistema {
                         System.out.println("/*********Confirmar Evento**********/");
                         System.out.println("/*                                    */");
                         System.out.println("/***********************************/");
+                        String mensaje=new String();
+//                        if(usuarioP.){
+//                            System.out.print("Ingrese el Id de la oden de pago: " );
+//                            mensaje=sc.nextLine();
+//                            System.out.print("El pago de este se ha realizado el: "+usuarioP.OrdenesDePago().getFechaRegistro() );
+//                            
+//                        }
+                        
                         break;
                     case "4":
                         System.out.println("/*********Consultar Evento**********/");

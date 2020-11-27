@@ -8,9 +8,12 @@ package usuario;
 import ManejoArchivo.ManejoArchivos;
 import evento.*;
 import evento.Evento;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tipos.TipoEstadoO;
 import tipos.TipoEstadoS;
 
@@ -38,6 +41,18 @@ public class OrdenPago {
         this.evento =conseguirEvento(evento);
         this.totalPagar=Double.parseDouble(totalPagar);
         this.estadoOrden=TipoEstadoO.valueOf(estadoOrden);
+    }
+    public OrdenPago(String codOrden,String evento, String totalPagar, String estadoOrden,String codTransa,String FechaRegistro){
+          this.codOrden=codOrden;
+        this.evento =conseguirEvento(evento);
+        this.totalPagar=Double.parseDouble(totalPagar);
+        this.estadoOrden=TipoEstadoO.valueOf(estadoOrden);  
+        this.codTransa=codTransa;
+        try {
+            this.FechaRegistro=formato.parse(FechaRegistro);
+        } catch (ParseException ex) {
+            Logger.getLogger(OrdenPago.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     //Getters y Setters
 

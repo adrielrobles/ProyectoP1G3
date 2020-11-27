@@ -64,8 +64,8 @@ public class Evento {
         this.cliente = Usuario.buscarCliente(cliente);
         this.tipoEvento= TipoEvento.valueOf(tipoEvento);
         try {
-            this.hora_Ini= formato.parse(hora_Ini);
-            this.hora_Fin=formato.parse(hora_Fin);
+            this.hora_Ini= formatoh.parse(hora_Ini);
+            this.hora_Fin=formatoh.parse(hora_Fin);
             this.fecha= formato.parse(fecha);
         } catch (ParseException ex) {
             System.out.println("");

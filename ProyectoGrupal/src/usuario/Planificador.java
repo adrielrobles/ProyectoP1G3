@@ -104,6 +104,16 @@ public class Planificador extends Usuario {
         }
         return evento;     
     }
+      public Evento consultarOrdenPago(String ordenPago){
+        for(Solicitud solici:solicitudes){
+            if(solici.getId_solicitud().equals(ordenPago)){
+                
+                
+                
+            }
+        }
+        return evento;     
+    }
     /**.
      * Metodo para registrar los demas datos de un evento Boda generados por el usuario.
      * @param fechaI

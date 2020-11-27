@@ -26,7 +26,7 @@ import tipos.TipoEvento;
 public class Cliente extends Usuario {
     protected int telefono;
     protected String correoElectronico;
-    protected ArrayList<OrdenPago> ordenPago = new ArrayList<>();
+    
     
     
     /**
@@ -56,13 +56,7 @@ public class Cliente extends Usuario {
     }
     //GETTERS 
 
-    public ArrayList<OrdenPago> getOrdenPago() {
-        return ordenPago;
-    }
-
-    public void setOrdenPago(ArrayList<OrdenPago> ordenPago) {
-        this.ordenPago = ordenPago;
-    }
+   
 
     public int getTelefono() {
         return telefono;
@@ -101,17 +95,8 @@ public class Cliente extends Usuario {
         System.out.println("**Se ha registrado su solicitud, pronto el planificador se conectara con usted por \n telefono o video conferencia para completar el proceso de recoleccion de datos.\n");
         } 
    
-    public void  OrdenesDePago(){
-        ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
-        for(String cod: codigo){
-            String listcod[]=cod.split(",");
-            OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3]);
-            if (ordenPago.getEvento().getCliente().getNombre().equals(nombre)){
-                
-                this.ordenPago.add(ordenPago);
-            } 
-        }       
-}
+
+    
     public ArrayList<String> recuperarCodO(){      
         ArrayList<String> codigoOrden = new ArrayList<>();
        for(OrdenPago codPa: ordenPago){
