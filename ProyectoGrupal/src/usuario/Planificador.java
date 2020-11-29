@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import tipos.TipoEstadoE;
+import tipos.TipoEstadoO;
 import tipos.TipoEstadoS;
 import tipos.TipoEvento;
 
@@ -23,6 +25,7 @@ import tipos.TipoEvento;
 public class Planificador extends Usuario {
     private Evento evento;
     private static ArrayList<Solicitud> solicitudes = new ArrayList<>();
+    private static ArrayList<Evento> eventos = new ArrayList<>();
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat formatoh = new SimpleDateFormat("HH:mm");
     /**
@@ -63,7 +66,12 @@ public class Planificador extends Usuario {
             }       
         }
         
-    }      
+    }    
+    public void obtenerEventos(){
+        for(OrdenPago orden : ordenPago){
+            
+        }
+    }
     /**
      * Este metodo permitira consultar las solicitudes pendiente que tiene el planificador leyendo el arrayList de solicitudes que 
      * posee el planificador.
@@ -82,37 +90,41 @@ public class Planificador extends Usuario {
      * @param id_solicitud
      * @return 
      */
-    public Evento consularSolicitud(String id_solicitud){
+    public boolean consularSolicitud(String id_solicitud){
         for(Solicitud solici:solicitudes){
             if(solici.getId_solicitud().equals(id_solicitud)){
                 System.out.print(solici.toString());
                 switch (solici.getTipoEvento()) {
                     case BODA:
                         evento = new Boda(solici.getFechaEvento(),solici.getCliente(),solici.getPlanificador(),solici.getTipoEvento());
-                        break;
+                        return true;
                     case EMPRESARIAL:
                         evento = new Empresarial(solici.getFechaEvento(),solici.getCliente(),solici.getPlanificador(),solici.getTipoEvento());
-                        break;
+                        return true;
                     case INFANTIL:
                         evento = new Infantil(solici.getFechaEvento(),solici.getCliente(),solici.getPlanificador(),solici.getTipoEvento());
-                        break;
+                        return true;
                     default:
                         break;
                 }
                 System.out.println("Precio Base: "+evento.getPrecioTotal());
             }
         }
-        return evento;     
+        return false;     
     }
-      public Evento consultarOrdenPago(String ordenPago){
-        for(Solicitud solici:solicitudes){
-            if(solici.getId_solicitud().equals(ordenPago)){
-                
-                
-                
+      public boolean consultarOrdenPago(String id_ordenPago){
+        for(OrdenPago orden:ordenPago){
+            if(orden.getCodOrden().equals(ordenPago)){
+                if(orden.getEstadoOrden().equals(TipoEstadoO.APROBADO)){
+                    System.out.println("El pago de este evento se ha realizado: "+formato.format(orden.getFechaRegistro()));
+                    return true;
+                }
+                else        
+                    System.out.println("El pago de este evento no a sido generado");
             }
         }
-        return evento;     
+        System.out.println("Ingrese un id de orden correcto");
+        return false;     
     }
     /**.
      * Metodo para registrar los demas datos de un evento Boda generados por el usuario.
@@ -200,6 +212,21 @@ public class Planificador extends Usuario {
             }
         ManejoArchivos.sobrescrituraA("solicitudes.txt", solicitudes);
         }
+    public void cambiaEstadoO(String id_solicitud){
+        int indice =0;
+        for(OrdenPago orden:ordenPago){
+            if(orden.getCodOrden().equals(id_solicitud)){
+                for(Evento event:eventos){
+                    if(orden.getEvento().getCodigoEvento().equals(event.getCodigoEvento())){
+                        event.setEstado(TipoEstadoE.CONFIRMADO);
+                    }
+                }
+            }
+            }
+        ManejoArchivos.sobrescrituraA("eventos.txt", solicitudes);
+        }
+    
+
     public boolean verificacionAd(String tipoAdicional){
         return evento.verificacionAd(tipoAdicional);
     }

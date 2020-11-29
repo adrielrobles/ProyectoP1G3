@@ -110,7 +110,6 @@ public abstract class Usuario {
            }else if(listcod.length==6){
                OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3],listcod[4],listcod[5]);
                    if (ordenPago.getEvento().getPlanificador().getNombre().equals(nombre)){
-                
                         this.ordenPago.add(ordenPago);
             } 
            }

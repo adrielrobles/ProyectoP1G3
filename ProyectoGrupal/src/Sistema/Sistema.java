@@ -201,12 +201,12 @@ public class Sistema {
                         System.out.println("/*********REGISTRO DE EVENTOS**********/");
                         System.out.println("/*                                    */");
                         System.out.println("/**************************************/");
-                        Evento evento =null;
-                        while(evento == null){
+                        boolean validacion = true;
+                        while(validacion){
                         System.out.print("Ingrese el id de solicitud: ");
                         id_solicitud = sc.nextLine();
-                        evento = usuarioP.consularSolicitud(id_solicitud);
-                        if(evento == null)
+                        validacion = usuarioP.consularSolicitud(id_solicitud);
+                        if(validacion==true)
                             System.out.println("Ingrese un id de solicitud correcto");
                         }
                         System.out.println("/*********REGISTRO DE DATOS DEL EVENTO**********/");
@@ -225,8 +225,7 @@ public class Sistema {
                         System.out.print("Capacidad: ");
                         capacidad = sc.nextInt();
                         sc.nextLine();
-                        System.out.println(evento.getTipoEvento());
-                        switch (evento.getTipoEvento()) {
+                        switch (usuarioP.getEvento().getTipoEvento()) {
                             case BODA:
                                 while(!(vehiculo.equalsIgnoreCase("N")||vehiculo.equalsIgnoreCase("S"))){
                                     System.out.print("¿Desea registar un vehiculo para los novios?(S/N): ");
@@ -335,14 +334,25 @@ public class Sistema {
                         System.out.println("/*********Confirmar Evento**********/");
                         System.out.println("/*                                    */");
                         System.out.println("/***********************************/");
-                        String mensaje=new String();
-//                        if(usuarioP.){
-//                            System.out.print("Ingrese el Id de la oden de pago: " );
-//                            mensaje=sc.nextLine();
-//                            System.out.print("El pago de este se ha realizado el: "+usuarioP.OrdenesDePago().getFechaRegistro() );
-//                            
-//                        }
-                        
+                        validacion = true;
+                        String orden = "";
+                        while(validacion){
+                        System.out.print("Ingrese el Id de la oden de pago: " );
+                        orden =sc.nextLine();
+                        validacion = usuarioP.consultarOrdenPago(orden);
+                        }
+                        System.out.print("¿Desea aprobar este pago? (S/N): " );
+                        String op= sc.nextLine();
+                        switch(op){
+                            case "S":
+                                usuarioP.cambiaEstadoO(orden);
+                                break;
+                            case "N":
+                                System.out.println("No se aprobo pago de Evento");
+                                break;
+                            default:    
+                                System.out.println("INGRESO INCORRECTO.\n Ingrese S/N");                                 
+                        }
                         break;
                     case "4":
                         System.out.println("/*********Consultar Evento**********/");
