@@ -97,13 +97,13 @@ public class Planificador extends Usuario {
                 switch (solici.getTipoEvento()) {
                     case BODA:
                         evento = new Boda(solici.getFechaEvento(),solici.getCliente(),solici.getPlanificador(),solici.getTipoEvento());
-                        return true;
+                        return false;
                     case EMPRESARIAL:
                         evento = new Empresarial(solici.getFechaEvento(),solici.getCliente(),solici.getPlanificador(),solici.getTipoEvento());
-                        return true;
+                        return false;
                     case INFANTIL:
                         evento = new Infantil(solici.getFechaEvento(),solici.getCliente(),solici.getPlanificador(),solici.getTipoEvento());
-                        return true;
+                        return false;
                     default:
                         break;
                 }

@@ -251,6 +251,7 @@ public class Sistema {
                                             System.out.print("Ingrese la cantidad de personas que se transportan: ");
                                             cantVehiE = sc.nextInt();
                                             sc.nextLine();
+                                            
                                             break;
                                         case "N":
                                             break;
