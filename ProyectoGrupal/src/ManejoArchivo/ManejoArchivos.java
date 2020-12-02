@@ -5,6 +5,7 @@ package ManejoArchivo;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import evento.Evento;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -118,7 +119,7 @@ public class ManejoArchivos {
         }        
     }
     public static void sobrescrituraA(ArrayList<OrdenPago> orden, String nombreArchivo){
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); //Bro porque esta linea sino la utilizaste
         ArrayList<String> lista = LeeFichero(nombreArchivo);
         ArrayList<String> nuevaLista = new ArrayList<>();
         for (String linea:lista){
@@ -148,5 +149,31 @@ public class ManejoArchivos {
         for(String lineaA:nuevaLista){
         EscribirArchivo(nombreArchivo,lineaA);
         }        
+    }
+    public static void sobrescrituraAEvento(ArrayList<Evento> evento, String nombreArchivo){
+        ArrayList<String>lista=LeeFichero(nombreArchivo);
+        ArrayList<String>nuevaLista=new ArrayList<>();
+        for(String linea:lista){
+            String listsoli[]=linea.split(",");
+            for(Evento lineaE:evento){
+                String lineaN="";
+                if(String.valueOf(lineaE.getCodigoEvento()).equals(listsoli[0])&&String.valueOf(listsoli[8]).equals(String.valueOf(lineaE.getTipoEvento()))){
+                    listsoli[8]=String.valueOf(lineaE.getEstado().CONFIRMADO);
+                    for(String lineaN2:listsoli){
+                         if(lineaN.length()==0)
+                            lineaN = lineaN2;
+                        else
+                            lineaN=lineaN+","+lineaN2;
+                    }
+                    nuevaLista.add(lineaN);
+                }
+            }
+        }
+        File fichero = new File(nombreArchivo);
+        fichero.delete();
+        for(String lineaA:nuevaLista){
+        EscribirArchivo(nombreArchivo,lineaA);
+        }  
+        
     }
 }

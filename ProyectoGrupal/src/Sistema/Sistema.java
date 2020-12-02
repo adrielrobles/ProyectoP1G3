@@ -96,7 +96,10 @@ public class Sistema {
                                     case "S":
                                         usuarioC.generarSolicitud(fechaE,fechaS,"BODA",usuarioC);
                                         break;
+                                    case "N":
+                                        break;
                                     default:
+                                    
                                         System.out.println("No se genero Solicitud.");
                                 }
                                 break;
@@ -125,6 +128,8 @@ public class Sistema {
                                 switch(registraSol.toUpperCase()){
                                     case "S":
                                         usuarioC.generarSolicitud(fechaE,fechaS,"EMPRESARIAL",usuarioC);
+                                        break;
+                                    case "N":
                                         break;
                                     default:
                                         System.out.println("No se genero Solicitud.");
@@ -164,7 +169,7 @@ public class Sistema {
                         }else{
                             System.out.println("Usted no posee eventos a pagar");
                         }
-                        ManejoArchivos.sobrescrituraA( usuarioC.getOrdenPago(),"ordenPago.txt");
+                        ManejoArchivos.sobrescrituraA( usuarioC.getOrdenPago(),"ordenPago.txt");//ahhhhhh un problema
                         break;
 
 
