@@ -277,7 +277,7 @@ public class Evento {
       */
      public void crearAdicionales(){
         for(Adicional adicionales:elementos_ad){
-            if(adicionales.getDescripcion().equals("")){
+            if(adicionales.getDescripcion()== null){
                 String linea= adicionales.getEvento().getCodigoEvento()+","+adicionales.getTipo()+","+adicionales.getCantidad()+","+adicionales.getPrecio()+","+adicionales.getValorTotal();
                 ManejoArchivos.EscribirArchivo("adicionales.txt",linea);
             }

@@ -110,7 +110,7 @@ public class Planificador extends Usuario {
                 System.out.println("Precio Base: "+evento.getPrecioTotal());
             }
         }
-        return false;     
+        return true;     
     }
       public boolean consultarOrdenPago(String id_ordenPago){
         for(OrdenPago orden:ordenPago){
@@ -253,7 +253,7 @@ public class Planificador extends Usuario {
                 break;
             case EMPRESARIAL:
                 Empresarial empresarial = (Empresarial) evento;
-                String lineaE=empresarial.getCodigoEvento()+","+empresarial.getCliente().getNombre()+","+empresarial.getTipoEvento()+","+empresarial.getFecha()+","+formatoh.format(empresarial.getHora_Ini())+","+formatoh.format(empresarial.getHora_Fin())+","+empresarial.getCapacidad()+","+empresarial.getPlanificador().getNombre()+","+empresarial.getEstado()+","+empresarial.getLugar()+","+empresarial.getCantidadPersonas();
+                String lineaE=empresarial.getCodigoEvento()+","+empresarial.getCliente().getNombre()+","+empresarial.getTipoEvento()+","+formato.format(empresarial.getFecha())+","+formatoh.format(empresarial.getHora_Ini())+","+formatoh.format(empresarial.getHora_Fin())+","+empresarial.getCapacidad()+","+empresarial.getPlanificador().getNombre()+","+empresarial.getEstado()+","+empresarial.getLugar()+","+empresarial.getCantidadPersonas();
                 ManejoArchivos.EscribirArchivo("eventos.txt",lineaE);
                 evento.crearAdicionales();
                 break;
@@ -265,7 +265,7 @@ public class Planificador extends Usuario {
                 }
                 else 
                     juegos="NO APLICA";
-                String lineaI=infantil.getCodigoEvento()+","+infantil.getCliente().getNombre()+","+infantil.getTipoEvento()+","+infantil.getFecha()+","+formatoh.format(infantil.getHora_Ini())+","+formatoh.format(infantil.getHora_Fin())+","+infantil.getCapacidad()+","+infantil.getPlanificador().getNombre()+","+infantil.getEstado()+","+infantil.getLugar()+","+infantil.getCantidadDisfrazados()+","+infantil.getCantidadSorpresas()+","+juegos;
+                String lineaI=infantil.getCodigoEvento()+","+infantil.getCliente().getNombre()+","+infantil.getTipoEvento()+","+formato.format(infantil.getFecha())+","+formatoh.format(infantil.getHora_Ini())+","+formatoh.format(infantil.getHora_Fin())+","+infantil.getCapacidad()+","+infantil.getPlanificador().getNombre()+","+infantil.getEstado()+","+infantil.getLugar()+","+infantil.getCantidadDisfrazados()+","+infantil.getCantidadSorpresas()+","+juegos;
                 ManejoArchivos.EscribirArchivo("eventos.txt",lineaI);
                 evento.crearAdicionales();
                 break;
@@ -283,6 +283,16 @@ public class Planificador extends Usuario {
          System.out.println("/******************************************/");
          System.out.print(ordenPago.toString());
      }
+     public void  OrdenesDePago(){
+        ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
+        for(String cod: codigo){
+           String listcod[]=cod.split(",");
+               OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3],listcod[4],listcod[5]);
+               if (ordenPago.getEvento().getPlanificador().getNombre().equals(nombre)&&ordenPago.getEstadoOrden().equals(TipoEstadoO.APROBADO)){
+                        this.ordenPago.add(ordenPago); 
+           }
+        }       
+    }
      
 //     public Planificador buscarPlanificador(ArrayList<Usuario> planificador) {
 //        ArrayList<Planificador> unPlanificador = new ArrayList<>();

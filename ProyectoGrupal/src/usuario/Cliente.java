@@ -100,13 +100,24 @@ public class Cliente extends Usuario {
     public ArrayList<String> recuperarCodO(){      
         ArrayList<String> codigoOrden = new ArrayList<>();
        for(OrdenPago codPa: ordenPago){
-           if (codPa.getEstadoOrden().equals(TipoEstadoO.PENDIENTEPAGO)){            
-               codigoOrden.add(codPa.getCodOrden());
-           }           
+               if(codPa.getEstadoOrden().equals(TipoEstadoO.PENDIENTEPAGO))
+                    codigoOrden.add(codPa.getCodOrden());           
        }
         return codigoOrden;
     }
-    
+    public void  OrdenesDePago(){
+        ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
+        for(String cod: codigo){
+           String listcod[]=cod.split(",");
+           if(listcod.length==4){
+            OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3]);
+            if (ordenPago.getEvento().getCliente().getNombre().equals(nombre)&&ordenPago.getEstadoOrden().equals(TipoEstadoO.PENDIENTEPAGO)){
+                this.ordenPago.add(ordenPago);
+                System.out.println(ordenPago.getEvento().getCliente().getNombre());
+            } 
+           }
+        }
+    }
     public void generarPago(String transaccion, String codOrden, Date fecha){
         for(OrdenPago codPa: ordenPago){
            if (codPa.getCodOrden().equals(codOrden)){
@@ -114,9 +125,7 @@ public class Cliente extends Usuario {
                codPa.setFechaRegistro(fecha);
                codPa.setEstadoOrden(TipoEstadoO.APROBADO);
                System.out.println("Listo, se ha registrado. Cuando el planificador valide el pago se pondra en contacto con usted");
-           } else{
-               System.out.println("No se registro el pago");
-           }          
+           }         
        }
     }
     public void sobreEscribirAr(){

@@ -94,21 +94,26 @@ public class ManejoArchivos {
         ArrayList<String> nuevaLista = new ArrayList<>();
         for (String linea:lista){
             String listsoli[] = linea.split(",");
+            if(listsoli[5].equals("APROBADO")){
+                nuevaLista.add(linea);
+            }
+            else{
             for(Solicitud lineaS:solicitudes){
                 String lineaN="";
-                if(String.valueOf(lineaS.getEstado()).equals("APROBADO")&&listsoli[0].equals(lineaS.getId_solicitud())&&listsoli[2].equals(lineaS.getPlanificador().getNombre())){
-                    listsoli[5] = String.valueOf(lineaS.getEstado());
+                if(listsoli[0].equals(lineaS.getId_solicitud())){
+                    if (String.valueOf(lineaS.getEstado()).equals("APROBADO")){
+                        listsoli[5] = String.valueOf(lineaS.getEstado());
                     for(String lineaN2:listsoli){
-                        
                         if(lineaN.length()==0)
                             lineaN = lineaN2;
                         else
                             lineaN=lineaN+","+lineaN2;
                     }
                     nuevaLista.add(lineaN);
+                    }
                 }
                 }
-            if(listsoli[5].equals("PENDIENTE")){
+            if(listsoli[5].equals("PENDIENTE"))
                 nuevaLista.add(linea);
             }
         }
@@ -118,31 +123,38 @@ public class ManejoArchivos {
         EscribirArchivo(nombreArchivo,lineaA);
         }        
     }
-    public static void sobrescrituraA(ArrayList<OrdenPago> orden, String nombreArchivo){
+    public static void sobrescrituraAOrden(ArrayList<OrdenPago> orden, String nombreArchivo){
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); //Bro porque esta linea sino la utilizaste
         ArrayList<String> lista = LeeFichero(nombreArchivo);
         ArrayList<String> nuevaLista = new ArrayList<>();
         for (String linea:lista){
-            List<String> listcod = new ArrayList();
             String listsoli[] = linea.split(",");
-            for(OrdenPago lineaS:orden){
+            if(listsoli[3].equals("APROBADO")){
+                nuevaLista.add(linea);
+            }
+            else{
+            for(OrdenPago lineaO:orden){
                 String lineaN="";
-                if(String.valueOf(lineaS.getCodOrden()).equals(listsoli[0])&&listsoli[1].equals(lineaS.getEvento().getCodigoEvento())){                  
-                    listsoli[3] = String.valueOf(lineaS.getEstadoOrden());
-                    listcod = Arrays.asList(listsoli);
-                    for(String lineaN2:listcod){
-                        
+                if (lineaO.getCodOrden().equals(listsoli[0])){
+                    if (String.valueOf(lineaO.getEstadoOrden()).equals("APROBADO")){
+                    listsoli[3] = String.valueOf(lineaO.getEstadoOrden());
+                    ArrayList<String> sublista = new ArrayList<String>(Arrays.asList(listsoli));
+                    sublista.add(lineaO.getCodTransa());
+                    sublista.add(formato.format(lineaO.getFechaRegistro()));
+                    for(String lineaN2:sublista){
                         if(lineaN.length()==0)
                             lineaN = lineaN2;
                         else
                             lineaN=lineaN+","+lineaN2;
                     }
                     nuevaLista.add(lineaN);
+                    }
                 }
-                }
+            }
             if(listsoli[3].equals("PENDIENTEPAGO")){
                 nuevaLista.add(linea);
             }
+        }
         }
         File fichero = new File(nombreArchivo);
         fichero.delete();
@@ -157,7 +169,7 @@ public class ManejoArchivos {
             String listsoli[]=linea.split(",");
             for(Evento lineaE:evento){
                 String lineaN="";
-                if(String.valueOf(lineaE.getCodigoEvento()).equals(listsoli[0])&&String.valueOf(listsoli[8]).equals(String.valueOf(lineaE.getTipoEvento()))){
+                if(String.valueOf(lineaE.getCodigoEvento()).equals(listsoli[0])&&String.valueOf(listsoli[8]).equals("PENDIENTE")){
                     listsoli[8]=String.valueOf(lineaE.getEstado().CONFIRMADO);
                     for(String lineaN2:listsoli){
                          if(lineaN.length()==0)
@@ -167,6 +179,9 @@ public class ManejoArchivos {
                     }
                     nuevaLista.add(lineaN);
                 }
+            }
+            if(listsoli[8].equals("PENDIENTE")){
+                nuevaLista.add(linea);
             }
         }
         File fichero = new File(nombreArchivo);

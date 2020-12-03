@@ -61,9 +61,9 @@ public class Sistema {
     public void iniciar(){
         Usuario usuario = menuprincipal();
         String opcion="";
-        String opcion2="";
         if(usuario.getTipo()=='C'){
             Cliente usuarioC = (Cliente)usuario;
+            usuarioC.OrdenesDePago();
             while(!(opcion.equals("3"))){
               System.out.println("1. Solicitar Planificacion De Evento");
               System.out.println("2. Registar Pago Evento ");
@@ -72,10 +72,11 @@ public class Sistema {
               opcion = sc.nextLine();
               switch (opcion){
                 case "1":
+                    String opcion2="";
                     System.out.println("/*********NUEVA SOLICITUD***********/");
                     System.out.println("/*                                  */");
                     System.out.println("/************************************/");
-                System.out.println("              BIENVENIDO@ " + usuario.getNombre());
+                    System.out.println("              BIENVENIDO@ " + usuario.getNombre());
                         System.out.println("TIPO DE EVENTO (Elija)");
                         System.out.println("1. Boda ");
                         System.out.println("2. Fiesta Infantil ");
@@ -137,42 +138,39 @@ public class Sistema {
                                 break;
                                 
                         }
-
+                        break;
                     case "2":
-                        usuarioC.OrdenesDePago();;
                         System.out.println("/*********Registrar Pago Evento**********/");
                         System.out.println("/                                        /");
                         System.out.println("/****************************************/");
-                        if (usuarioC.recuperarCodO().size()!=0){                            
-                        for(String codirecu: usuarioC.recuperarCodO()){
+                        ArrayList <String> codigosO = usuarioC.recuperarCodO();
+                        if (codigosO.size()!= 0){                            
+                        for(String codirecu: codigosO){
                              System.out.println("Su orden con codigo "+ codirecu +" esta pendiente de pago");
                              String caso= "";
-                             while(!caso.equals("N")){
+                             while(!(caso.equalsIgnoreCase("N")||caso.equalsIgnoreCase("S"))){
                              System.out.print("¿Desea registrar pago ahora? (S/N): ");
                              caso= sc.nextLine();
-                             switch (caso){
+                             switch (caso.toUpperCase()){
                              case "S":
                                  Date fecha= new Date();
                                  System.out.print("Ingrese codigo de transaccion: ");
                                  String codTran= sc.nextLine();
                                  usuarioC.generarPago(codTran, codirecu, fecha);
-                                 caso="N";
                                  break;
                              case "N":
                                  System.out.println("No se registro pago.");
                                  break;
                              default:
                                  System.out.println("INGRESO INCORRECTO!!---Utilize S o N");
-                             } 
+                             }
                              }
                         }
                         }else{
                             System.out.println("Usted no posee eventos a pagar");
                         }
-                        ManejoArchivos.sobrescrituraA( usuarioC.getOrdenPago(),"ordenPago.txt");//ahhhhhh un problema
+                        ManejoArchivos.sobrescrituraAOrden(usuarioC.getOrdenPago(),"ordenPago.txt");
                         break;
-
-
                     case "3":
                         System.out.println("Acaba de salir ");
                         System.out.println("                                   ");
@@ -187,7 +185,7 @@ public class Sistema {
             usuarioP.obtenerSolicitudes(usuarioP);
             while (!opcion.equals("5")) {
                 System.out.println("              BIENVENIDO@ " + usuario.getNombre());
-                System.out.println("1.Consultar Solicitudes Pendientes ");
+                System.out.println("1. Consultar Solicitudes Pendientes ");
                 System.out.println("2. Registrar Evento");
                 System.out.println("3. Confirmar Evento ");
                 System.out.println("4. Consultar Evento ");
@@ -251,12 +249,11 @@ public class Sistema {
                                 while(!(vehiculoE.equalsIgnoreCase("S")|| vehiculoE.equalsIgnoreCase("N"))){
                                 System.out.print("¿Desea registar un transporte? (S/N): ");
                                 vehiculoE = sc.nextLine();
-                                switch (vehiculoE){
+                                switch (vehiculoE.toUpperCase()){
                                         case "S":
                                             System.out.print("Ingrese la cantidad de personas que se transportan: ");
                                             cantVehiE = sc.nextInt();
-                                            sc.nextLine();
-                                            
+                                            sc.nextLine();  
                                             break;
                                         case "N":
                                             break;
@@ -271,34 +268,47 @@ public class Sistema {
                                 while(!(personajD.equalsIgnoreCase("S")|| personajD.equalsIgnoreCase("N"))){
                                 System.out.print("¿Desea registrar personajes disfrazados? (S/N): ");
                                 personajD = sc.nextLine();
-                                switch (personajD.toUpperCase()){
-                                        case "S":
-                                           System.out.print("Ingrese la cantidad de personajes disfrazados: ");
-                                           cantPerD = sc.nextInt();
-                                           sc.nextLine();
-                                           while(juegoF.equalsIgnoreCase("S")|| juegoF.equalsIgnoreCase("N")){
-                                           System.out.print("¿Desea registrar juegos durante la fiesta? (S/N): ");
-                                           juegoF = sc.nextLine();
-                                           switch (juegoF.toUpperCase()){
-                                            case "S":
-                                                System.out.print("Ingrese la cantidad de personas que se transportan: ");
-                                                cantVehiE = sc.nextInt();
-                                                sc.nextLine();
-                                                break;
-                                            case "N":
-                                                break;
-                                            default:
-                                                System.out.println("INGRESO INCORRECTO!!---Utilize S o N");
-                                        }
+                                if(personajD.equalsIgnoreCase("S")||personajD.equalsIgnoreCase("N")){
+                                    if(personajD.equalsIgnoreCase("S")){
+                                    System.out.print("Ingrese la cantidad de personajes disfrazados: ");
+                                    cantPerD = sc.nextInt();
+                                    sc.nextLine();
                                     }
-                                            break;
-                                        case "N":
-                                            break;
-                                        default:
-                                        System.out.println("INGRESO INCORRECTO!!, utilize S o N");
-                                        }
+                                    else
+                                        System.out.println("No requiere del servicio de personajes disfrazados");
                                 }
-                                usuarioP.registrarEvento(horaI, horaF, capacidad, cantSor, cantSor, juegoF,lugar);
+                                else
+                                    System.out.println("INGRESO INCORRECTO!!---Utilize S o N");
+                                }
+                                String valcants="";
+                                while(!(valcants.equalsIgnoreCase("S")|| valcants.equalsIgnoreCase("N"))){
+                                System.out.print("¿Desea registrar sorpresas? (S/N): ");
+                                valcants = sc.nextLine();
+                                if(valcants.equalsIgnoreCase("S")||valcants.equalsIgnoreCase("N")){
+                                    if(valcants.equalsIgnoreCase("S")){
+                                    System.out.print("Ingrese la cantidad de sopresas a repartirse: ");
+                                    cantSor = sc.nextInt();
+                                    sc.nextLine();
+                                    }
+                                    else
+                                        System.out.println("No requiere del servicio de sorpresas");
+                                }
+                                else
+                                    System.out.println("INGRESO INCORRECTO!!---Utilize S o N");
+                                }
+                                while(!(juegoF.equalsIgnoreCase("S")|| juegoF.equalsIgnoreCase("N"))){
+                                  System.out.print("¿Desea registrar juegos durante la fiesta? (S/N): ");
+                                  juegoF = sc.nextLine();
+                                  if(juegoF.equalsIgnoreCase("S")||juegoF.equalsIgnoreCase("N")){
+                                        if(juegoF.equalsIgnoreCase("S"))
+                                        System.out.println("Se agrego juegos");
+                                        else 
+                                            System.out.println("No se agrego juegos");
+                                            }
+                                  else
+                                        System.out.println("INGRESO INCORRECTO!!---Utilize S o N");
+                                        }
+                                usuarioP.registrarEvento(horaI, horaF, capacidad, cantPerD, cantSor, juegoF,lugar);
                                 break;
                         }
                         opcion = "";

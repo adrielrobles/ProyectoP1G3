@@ -131,25 +131,24 @@ public class OrdenPago {
      */
     public String toString() {
         return "CODIGO PAGO: "+codOrden+"\nCLIENTE: " + evento.getCliente().getNombre().toUpperCase()+"\nEVENTO: "+evento.getTipoEvento()+"\nFECHA EVENTO: "+
-                formato.format(evento.getFecha())+"\nADICIONALES: "+evento.presentarAdici()+"\nTOTAL A PAGAR: "+evento.getPrecioTotal();      
+                formato.format(evento.getFecha())+"\nADICIONALES: "+evento.presentarAdici()+"\nTOTAL A PAGAR: "+evento.getPrecioTotal()+"\n";      
     }
     //83,Adriel,BODA,12/12/2024,15:00,03:00,200,Jose,PENDIENTE,DURAN,Si Aplica
     public Evento conseguirEvento(String codigoEvento){
        ArrayList<String> eventos = ManejoArchivos.LeeFichero("eventos.txt");
        for(String linea: eventos){
            String listeventos[]= linea.split(",");
+           if (listeventos[0].equals(codigoEvento)){
            switch (listeventos[2]){
                case "BODA":
                    return (Evento)new Boda(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10]);                              
                case "INFANTIL":
                    return (Evento)new Infantil(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10],listeventos[11],listeventos[12]);
                case "EMPRESARIAL":
-                   return (Evento)new Empresarial(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10]); 
-                  
-           }
-                   
+                   return (Evento)new Empresarial(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10]);       
+           }     
        }
-
+       }
       return null;  
     }
     

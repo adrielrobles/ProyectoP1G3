@@ -97,23 +97,5 @@ public abstract class Usuario {
              }
          }return null;
     }  
-        public void  OrdenesDePago(){
-        ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
-        for(String cod: codigo){
-            String listcod[]=cod.split(",");
-           if(listcod.length==4){
-            OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3]);
-            if (ordenPago.getEvento().getCliente().getNombre().equals(nombre)){
-                
-                this.ordenPago.add(ordenPago);
-            } 
-           }else if(listcod.length==6){
-               OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3],listcod[4],listcod[5]);
-                   if (ordenPago.getEvento().getPlanificador().getNombre().equals(nombre)){
-                        this.ordenPago.add(ordenPago);
-            } 
-           }
-        }       
-    }
-    
+        
 }
