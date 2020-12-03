@@ -324,6 +324,45 @@ public class Planificador extends Usuario {
          }
          return 0;
      }
+     public void conteoEventos(String opcion){
+         int num=0;
+         Evento evento= null ;
+         for (Evento evento1: eventos){
+             if (String.valueOf(evento1.getTipoEvento()).equals("BODA")&& opcion.equals("1")){
+                 num++;
+                 evento = evento1;
+             }
+             else if (String.valueOf(evento1.getTipoEvento()).equals("EMPRESARIAL")&& opcion.equals("3")){
+                 num++;
+                 evento = evento1;
+             }
+             else if (String.valueOf(evento1.getTipoEvento()).equals("INFANTIL")&& opcion.equals("2")){
+                 num++;
+                 evento = evento1;
+             }
+         }
+         if (opcion.equals("1")){
+         System.out.println("Tiene "+num+" Bodas asignadas ");
+         if(evento != null){
+         Boda boda =(Boda) evento;
+         boda.mostrarMensaje();
+         }
+         }
+         else if (opcion.equals("2")){
+         System.out.println("Tiene "+num+" fiestas Infantiles asignadas ");
+                  if(evento != null){ 
+         Infantil infantil =(Infantil) evento;
+         infantil.mostrarMensaje();
+         }
+         }
+         else if (opcion.equals("3")){
+         System.out.println("Tiene "+num+" fiestas Empresariales asignadas");
+         if(evento != null){
+         Empresarial empresarial =(Empresarial) evento;
+         empresarial.mostrarMensaje();
+         }
+         }
+     }
      
 //     public Planificador buscarPlanificador(ArrayList<Usuario> planificador) {
 //        ArrayList<Planificador> unPlanificador = new ArrayList<>();

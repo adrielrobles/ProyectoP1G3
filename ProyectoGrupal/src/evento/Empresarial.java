@@ -41,6 +41,9 @@ public class Empresarial extends Evento{
     public void setCantidadPersonas(int cantidadPersonas) {
         this.cantidadPersonas = cantidadPersonas;
     }
-    
+    @Override
+     public void mostrarMensaje(){
+         System.out.println("Recuerde que el transporte al lugar del evento es gratuito en un próximo evento, si lo organizan con el mismo planificador.");
+     }
     
 }

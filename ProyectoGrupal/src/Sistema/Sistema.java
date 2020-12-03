@@ -379,9 +379,22 @@ public class Sistema {
                             System.out.println("No posee ningun evento a confirmar");
                         break;
                     case "4":
+                        String opcion4p = "";
+                        while (!opcion4p.equals("4")) {
                         System.out.println("/*********Consultar Evento**********/");
-                        System.out.println("/*                                    */");
+                        System.out.println("/*                                 */");
                         System.out.println("/***********************************/");
+                        System.out.println("1. Boda");
+                        System.out.println("2. Fiesta Infantil");
+                        System.out.println("3. Fiesta Empresarial ");
+                        System.out.println("4. Volver al menu anterior ");
+                        System.out.print("Elija el tipo de Evento que desa consultar: ");
+                        opcion4p = sc.nextLine();
+                        if(opcion4p.equals("1")||opcion4p.equals("2")||opcion4p.equals("3")||opcion4p.equals("4"))
+                            usuarioP.conteoEventos(opcion4p);
+                        else
+                                System.out.println("Ingrese opcion correcta");
+                        }
                         break;
                     default:
                         System.out.println("Opcion No valida!!, vuelva a ingresar");

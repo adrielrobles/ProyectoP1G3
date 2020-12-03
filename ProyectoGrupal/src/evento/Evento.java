@@ -305,9 +305,6 @@ public class Evento {
              linea = "NO POSEE ADICIONALES";
          return linea;
      }
-     public ArrayList<Adicional> recuperarAdicional(Evento evento){
-         ArrayList<Adicional> adicionales = new ArrayList<>();
-         
-         return null;
+     public void mostrarMensaje(){  
      }
 }

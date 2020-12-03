@@ -54,6 +54,10 @@ public class Boda extends Evento{
     public void setVehiculo(boolean vehiculo) {
         this.vehiculo = vehiculo;
     }
+    @Override
+     public void mostrarMensaje(){
+         System.out.println(" Recuerde que los novios tendrán un 25% de descuento si compran sus tickets de luna de miel en la aerolínea LATAM.");
+     }
     
     
 }

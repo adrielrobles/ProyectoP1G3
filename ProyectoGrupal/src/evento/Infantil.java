@@ -65,4 +65,9 @@ public class Infantil extends Evento {
         this.juegos = juegos;
     }
     
+    @Override
+     public void mostrarMensaje(){
+         System.out.println("Recuerde que se si realizan un próximo evento en las mismas instalaciones en un plazo de 6 meses se les otorgará en servicio de música gratuito.");
+     }
+    
 }
