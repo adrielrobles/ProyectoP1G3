@@ -183,6 +183,8 @@ public class Sistema {
         } else if (usuario.getTipo() == 'P') {
             Planificador usuarioP = (Planificador)usuario;
             usuarioP.obtenerSolicitudes(usuarioP);
+            usuarioP.OrdenesDePago();
+            usuarioP.recuperarEventos();
             while (!opcion.equals("5")) {
                 System.out.println("              BIENVENIDO@ " + usuario.getNombre());
                 System.out.println("1. Consultar Solicitudes Pendientes ");
@@ -352,6 +354,7 @@ public class Sistema {
                         System.out.println("/***********************************/");
                         validacion = true;
                         String orden = "";
+                        if ( usuarioP.numeroEventosC() != 0){
                         while(validacion){
                         System.out.print("Ingrese el Id de la oden de pago: " );
                         orden =sc.nextLine();
@@ -359,9 +362,11 @@ public class Sistema {
                         }
                         System.out.print("¿Desea aprobar este pago? (S/N): " );
                         String op= sc.nextLine();
-                        switch(op){
+                        switch(op.toUpperCase()){
                             case "S":
-                                usuarioP.cambiaEstadoO(orden);
+                                usuarioP.cambiaEstadoE(orden);
+                                System.out.println("El pago se ha aprobado.");
+                                System.out.println("El evento se ha confirmado para la fecha establecida. ");
                                 break;
                             case "N":
                                 System.out.println("No se aprobo pago de Evento");
@@ -369,6 +374,9 @@ public class Sistema {
                             default:    
                                 System.out.println("INGRESO INCORRECTO.\n Ingrese S/N");                                 
                         }
+                        }
+                        else
+                            System.out.println("No posee ningun evento a confirmar");
                         break;
                     case "4":
                         System.out.println("/*********Consultar Evento**********/");

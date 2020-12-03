@@ -113,7 +113,6 @@ public class Cliente extends Usuario {
             OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3]);
             if (ordenPago.getEvento().getCliente().getNombre().equals(nombre)&&ordenPago.getEstadoOrden().equals(TipoEstadoO.PENDIENTEPAGO)){
                 this.ordenPago.add(ordenPago);
-                System.out.println(ordenPago.getEvento().getCliente().getNombre());
             } 
            }
         }

@@ -43,10 +43,7 @@ public class OrdenPago {
         this.estadoOrden=TipoEstadoO.valueOf(estadoOrden);
     }
     public OrdenPago(String codOrden,String evento, String totalPagar, String estadoOrden,String codTransa,String FechaRegistro){
-          this.codOrden=codOrden;
-        this.evento =conseguirEvento(evento);
-        this.totalPagar=Double.parseDouble(totalPagar);
-        this.estadoOrden=TipoEstadoO.valueOf(estadoOrden);  
+        this(codOrden,evento,totalPagar,estadoOrden);  
         this.codTransa=codTransa;
         try {
             this.FechaRegistro=formato.parse(FechaRegistro);

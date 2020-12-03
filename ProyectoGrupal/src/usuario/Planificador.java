@@ -47,6 +47,14 @@ public class Planificador extends Usuario {
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
+
+    public static ArrayList<Evento> getEventos() {
+        return eventos;
+    }
+
+    public static void setEventos(ArrayList<Evento> eventos) {
+        Planificador.eventos = eventos;
+    }
     
     /**
      * este metodo nos permitira agregar todas las solicitudes de correspondiente planificador que se encuentre dentro del sistema
@@ -65,12 +73,25 @@ public class Planificador extends Usuario {
                 }
             }       
         }
-        
     }    
-    public void obtenerEventos(){
-        for(OrdenPago orden : ordenPago){
-            
-        }
+    public void recuperarEventos(){
+       ArrayList<String> leventos = ManejoArchivos.LeeFichero("eventos.txt");
+       for(String linea: leventos){
+           String listeventos[]= linea.split(",");
+           if (listeventos[7].equals(nombre)){
+           switch (listeventos[2]){
+               case "BODA":
+                   eventos.add((Evento)new Boda(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10]));
+                   break;
+               case "INFANTIL":
+                   eventos.add((Evento)new Infantil(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10],listeventos[11],listeventos[12]));
+                   break;
+               case "EMPRESARIAL":
+                   eventos.add((Evento)new Empresarial(listeventos[0],listeventos[1],listeventos[2],listeventos[3],listeventos[4],listeventos[5],listeventos[6],listeventos[7],listeventos[8],listeventos[9],listeventos[10])); 
+                   break;
+           }     
+       }
+    }
     }
     /**
      * Este metodo permitira consultar las solicitudes pendiente que tiene el planificador leyendo el arrayList de solicitudes que 
@@ -114,17 +135,17 @@ public class Planificador extends Usuario {
     }
       public boolean consultarOrdenPago(String id_ordenPago){
         for(OrdenPago orden:ordenPago){
-            if(orden.getCodOrden().equals(ordenPago)){
+            if(orden.getCodOrden().equals(id_ordenPago)){
                 if(orden.getEstadoOrden().equals(TipoEstadoO.APROBADO)){
                     System.out.println("El pago de este evento se ha realizado: "+formato.format(orden.getFechaRegistro()));
-                    return true;
+                    return false;
                 }
                 else        
                     System.out.println("El pago de este evento no a sido generado");
             }
         }
         System.out.println("Ingrese un id de orden correcto");
-        return false;     
+        return true;     
     }
     /**.
      * Metodo para registrar los demas datos de un evento Boda generados por el usuario.
@@ -212,7 +233,7 @@ public class Planificador extends Usuario {
             }
         ManejoArchivos.sobrescrituraA("solicitudes.txt", solicitudes);
         }
-    public void cambiaEstadoO(String id_solicitud){
+    public void cambiaEstadoE(String id_solicitud){
         int indice =0;
         for(OrdenPago orden:ordenPago){
             if(orden.getCodOrden().equals(id_solicitud)){
@@ -223,7 +244,7 @@ public class Planificador extends Usuario {
                 }
             }
             }
-        ManejoArchivos.sobrescrituraA("eventos.txt", solicitudes);
+        ManejoArchivos.sobrescrituraAEvento(eventos,"eventos.txt");
         }
     
 
@@ -287,12 +308,22 @@ public class Planificador extends Usuario {
         ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
         for(String cod: codigo){
            String listcod[]=cod.split(",");
+           if(listcod.length==6){ 
                OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3],listcod[4],listcod[5]);
-               if (ordenPago.getEvento().getPlanificador().getNombre().equals(nombre)&&ordenPago.getEstadoOrden().equals(TipoEstadoO.APROBADO)){
+               if (ordenPago.getEvento().getPlanificador().getNombre().equals(nombre)){
                         this.ordenPago.add(ordenPago); 
+           }
            }
         }       
     }
+     public int numeroEventosC(){
+         int i =0;
+         for(Evento evento1: eventos){
+             if(String.valueOf(evento1.getEstado()).equals("CONFIRMADO"))
+                 i++;
+         }
+         return 0;
+     }
      
 //     public Planificador buscarPlanificador(ArrayList<Usuario> planificador) {
 //        ArrayList<Planificador> unPlanificador = new ArrayList<>();

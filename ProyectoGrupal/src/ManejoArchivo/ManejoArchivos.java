@@ -165,22 +165,28 @@ public class ManejoArchivos {
     public static void sobrescrituraAEvento(ArrayList<Evento> evento, String nombreArchivo){
         ArrayList<String>lista=LeeFichero(nombreArchivo);
         ArrayList<String>nuevaLista=new ArrayList<>();
-        for(String linea:lista){
-            String listsoli[]=linea.split(",");
+        for (String linea:lista){
+            String listsoli[] = linea.split(",");
+            if(listsoli[8].equals("CONFIRMADO")){
+                nuevaLista.add(linea);
+            }
+            else{
             for(Evento lineaE:evento){
                 String lineaN="";
-                if(String.valueOf(lineaE.getCodigoEvento()).equals(listsoli[0])&&String.valueOf(listsoli[8]).equals("PENDIENTE")){
-                    listsoli[8]=String.valueOf(lineaE.getEstado().CONFIRMADO);
+                if (lineaE.getCodigoEvento().equals(listsoli[0])){
+                    if (String.valueOf(lineaE.getEstado()).equals("CONFIRMADO")){
+                    listsoli[8] = String.valueOf(lineaE.getEstado());
                     for(String lineaN2:listsoli){
-                         if(lineaN.length()==0)
+                        if(lineaN.length()==0)
                             lineaN = lineaN2;
                         else
                             lineaN=lineaN+","+lineaN2;
                     }
                     nuevaLista.add(lineaN);
+                    }
                 }
             }
-            if(listsoli[8].equals("PENDIENTE")){
+            if(listsoli[8].equals("PENDIENTE"))
                 nuevaLista.add(linea);
             }
         }
@@ -189,6 +195,5 @@ public class ManejoArchivos {
         for(String lineaA:nuevaLista){
         EscribirArchivo(nombreArchivo,lineaA);
         }  
-        
     }
 }
