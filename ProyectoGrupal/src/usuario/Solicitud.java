@@ -142,7 +142,7 @@ public class Solicitud {
             listaC.add(linea.split(",")[0]);
         }
         while(validacion==false){
-        double codigo = Math.random() * (100);  
+        double codigo = (double) Math.random() * (100);
         if(listaC.contains(String.valueOf(codigo))){
             validacion=false;
         }

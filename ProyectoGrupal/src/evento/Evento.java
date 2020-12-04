@@ -261,12 +261,12 @@ public class Evento {
             listaC.add(linea.split(",")[0]);
         }
         while(validacion==false){
-        double codigo = Math.random() * (100);  
+        int codigo =(int) (Math.random() * (10000 - 1000)) + 1000;  
         if(listaC.contains(String.valueOf(codigo))){
             validacion=false;
         }
         else{
-            codigos = Integer.toString((int)codigo);
+            codigos = Integer.toString(codigo);
             validacion=true;
         }
         }
