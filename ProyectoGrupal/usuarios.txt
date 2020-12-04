@@ -2,3 +2,6 @@ Adriel,robles,adropere,1234,C,09537,Mapasingue este
 Tatiana,yepez,tatiana,1234,P
 Jose,lopez,joseP,1234,P
 Eley,Perez,eley,1234,C,09537,Mapasingue este
+Antonio,moran,joantmor,1234,C,09864,Florida
+Erika,villa,ejvilla,1234,C,09854,Pascuales
+Carlos,castro,carlosC,1234,P
