@@ -58,7 +58,6 @@ public class Planificador extends Usuario {
      */
     public void obtenerSolicitudes(Planificador planificador){
         ArrayList<String> presolicitudes = ManejoArchivos.LeeFichero("solicitudes.txt");
-        
          for (String pre : presolicitudes) {
             String listsoli[] = pre.split(",");
             if(listsoli[2].equals(nombre)&&listsoli[5].equals("PENDIENTE")){
@@ -302,7 +301,7 @@ public class Planificador extends Usuario {
          System.out.print(ordenPago.toString());
      }
      public void  OrdenesDePago(){
-        ordenPago= null;
+        //ordenPago= null;
         ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
         for(String cod: codigo){
            String listcod[]=cod.split(",");
