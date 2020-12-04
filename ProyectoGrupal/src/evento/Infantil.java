@@ -30,7 +30,22 @@ public class Infantil extends Evento {
         super(fecha, cliente, planificador,tipoEvento);
         precioTotal= precioBase;
     }
-    //String lineaI=infantil.getCodigoEvento()+","+infantil.getCliente().getNombre()+","+infantil.getTipoEvento()+","+infantil.getFecha()+","+formatoh.format(infantil.getHora_Ini())+","+formatoh.format(infantil.getHora_Fin())+","+infantil.getCapacidad()+","+infantil.getPlanificador().getNombre()+","+infantil.getEstado()+","+infantil.getLugar()+","+infantil.getCantidadDisfrazados()+","+infantil.getCantidadSorpresas()+","+juegos;
+    /**
+     *  Constructor que sirve para poder instanciar un evento de tipo Infantil al leer el archivo eventos.txt.    
+     * @param codigoEvento
+     * @param cliente
+     * @param tipoEvento
+     * @param fecha
+     * @param hora_Ini
+     * @param hora_Fin
+     * @param capacidad
+     * @param planificador
+     * @param estado
+     * @param lugar
+     * @param cantidadDisfrazados
+     * @param cantidadSorpresas
+     * @param juegos 
+     */
     public Infantil(String codigoEvento, String cliente, String tipoEvento,String fecha,String hora_Ini, String hora_Fin, String capacidad, String planificador, String estado, String lugar, String cantidadDisfrazados, String cantidadSorpresas, String juegos){
         super(codigoEvento,cliente,tipoEvento,fecha,hora_Ini,hora_Fin,capacidad,planificador,estado,lugar);    
         this.cantidadDisfrazados=Integer.parseInt(cantidadDisfrazados);
@@ -41,6 +56,8 @@ public class Infantil extends Evento {
             this.juegos=false;
         }
     }
+    
+    // Getters y Setters
     public int getCantidadDisfrazados() {
         return cantidadDisfrazados;
     }
@@ -64,7 +81,9 @@ public class Infantil extends Evento {
     public void setJuegos(boolean juegos) {
         this.juegos = juegos;
     }
-    
+    /**
+     *  Metodo de sobrescritura de mostrarMensaje de parte de Infantil.
+     */
     @Override
      public void mostrarMensaje(){
          System.out.println("Recuerde que se si realizan un próximo evento en las mismas instalaciones en un plazo de 6 meses se les otorgará en servicio de música gratuito.");

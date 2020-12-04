@@ -30,7 +30,20 @@ public class Boda extends Evento{
         super(fecha, cliente, planificador, tipoEvento);
         precioTotal= precioBase;
     }
-    //83,Adriel,BODA,12/12/2024,15:00,03:00,200,Jose,PENDIENTE,DURAN,Si Aplica
+    /**
+     * Constructor que sirve para poder instanciar un evento de tipo Boda al leer el archivo eventos.txt.
+     * @param codigoEvento
+     * @param cliente
+     * @param tipoEvento
+     * @param fecha
+     * @param hora_Ini
+     * @param hora_Fin
+     * @param capacidad
+     * @param planificador
+     * @param estado
+     * @param lugar
+     * @param vehiculo 
+     */
     public Boda(String codigoEvento, String cliente, String tipoEvento,String fecha,String hora_Ini, String hora_Fin, String capacidad, String planificador, String estado, String lugar, String vehiculo){
         super(codigoEvento,cliente,tipoEvento,fecha,hora_Ini,hora_Fin,capacidad,planificador,estado,lugar);
         if(vehiculo.equalsIgnoreCase("SI APLICA")){
@@ -48,6 +61,10 @@ public class Boda extends Evento{
     public void setVehiculo(boolean vehiculo) {
         this.vehiculo = vehiculo;
     }
+    
+    /**
+     * Metodo de sobrescritura de mostrarMensaje de parte de Boda.
+     */
     @Override
      public void mostrarMensaje(){
          System.out.println(" Recuerde que los novios tendrán un 25% de descuento si compran sus tickets de luna de miel en la aerolínea LATAM.");

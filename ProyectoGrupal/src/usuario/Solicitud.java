@@ -153,7 +153,10 @@ public class Solicitud {
         }
         return codigos;
     }
-
+/**
+ * Permite escoger un planificador de todos los planificadores que existen para poder asignarle a la solicitud.
+ * @return 
+ */
     public Planificador buscarPlanificador() {
         ArrayList<Planificador> unPlanificador = new ArrayList<>();
         for (Usuario p: Sistema.getUsuarios()){
@@ -177,21 +180,4 @@ public class Solicitud {
                 formato.format(fechaSolicitud)+"\nTIPO EVENTO: "+tipoEvento+"\nFECHA EVENTO: "+formato.format(fechaEvento)+"\n";
              
     }
-    
-   
-       /* public void obtenerSolicitudes(Planificador planificador){
-        ArrayList<String> presolicitudes = ManejoArchivos.LeeFichero("solicitudes.txt");
-         for (String pre : presolicitudes) {
-            String listsoli[] = pre.split(",");
-            if(listsoli[2].equals(nombre)&&listsoli[5].equals("PENDIENTE")){
-                try {
-                    solicitudes.add(new Solicitud(listsoli[0],buscarCliente(listsoli[1]),planificador,formato.parse(listsoli[3]),formato.parse(listsoli[4]),listsoli[5],listsoli[6]));
-                } catch (ParseException ex) {
-                    System.out.println(ex);
-                }
-            }       
-        }
-        
-    }  */    
-    
 }

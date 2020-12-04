@@ -187,8 +187,8 @@ public class Sistema {
             }
         } else if (usuario.getTipo() == 'P') {
             Planificador usuarioP = (Planificador) usuario;
-            usuarioP.obtenerSolicitudes(usuarioP);
             while (!opcion.equals("5")) {
+                usuarioP.obtenerSolicitudes(usuarioP);
                 usuarioP.OrdenesDePago();
                 usuarioP.recuperarEventos();
                 System.out.println("              BIENVENIDO@ " + usuario.getNombre().toUpperCase());

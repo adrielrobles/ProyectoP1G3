@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package usuario;
-
 import ManejoArchivo.ManejoArchivos;
 import evento.*;
 import java.text.ParseException;
@@ -26,19 +25,38 @@ public class OrdenPago {
     private TipoEstadoO estadoOrden;
     private double totalPagar;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    
+    /**
+     * Contructor que permite crear una Orden de Pago con estado PENDIENTEPAGO
+     * @param evento 
+     */
     public OrdenPago(Evento evento){
         codOrden = generarCodigo();
         this.evento = evento;
         totalPagar = evento.getPrecioTotal();
         estadoOrden = TipoEstadoO.PENDIENTEPAGO;
     }
+    /**
+     * Constructor para poder crear una orden de Pago cuando se lea el archivo ordenPago.txt para el cliente.
+     * @param codOrden
+     * @param evento
+     * @param totalPagar
+     * @param estadoOrden 
+     */
     public OrdenPago(String codOrden,String evento, String totalPagar, String estadoOrden){
         this.codOrden=codOrden;
         this.evento =conseguirEvento(evento);
         this.totalPagar=Double.parseDouble(totalPagar);
         this.estadoOrden=TipoEstadoO.valueOf(estadoOrden);
     }
+    /**
+     * Constructor para poder crear una orden de Pago cuando se lea el archivo ordenPago.txt para el planificador
+     * @param codOrden
+     * @param evento
+     * @param totalPagar
+     * @param estadoOrden
+     * @param codTransa
+     * @param FechaRegistro 
+     */
     public OrdenPago(String codOrden,String evento, String totalPagar, String estadoOrden,String codTransa,String FechaRegistro){
         this(codOrden,evento,totalPagar,estadoOrden);  
         this.codTransa=codTransa;
@@ -48,6 +66,7 @@ public class OrdenPago {
             Logger.getLogger(OrdenPago.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     //Getters y Setters
 
     public double getTotalPagar() {
@@ -123,11 +142,16 @@ public class OrdenPago {
      * Metodo para presenta la orden de pago generada.
      * @return 
      */
+    @Override
     public String toString() {
         return "CODIGO PAGO: "+codOrden+"\nCLIENTE: " + evento.getCliente().getNombre().toUpperCase()+"\nEVENTO: "+evento.getTipoEvento()+"\nFECHA EVENTO: "+
                 formato.format(evento.getFecha())+"\nADICIONALES: "+evento.presentarAdici()+"\nTOTAL A PAGAR: "+evento.getPrecioTotal()+"\n";      
     }
-    //83,Adriel,BODA,12/12/2024,15:00,03:00,200,Jose,PENDIENTE,DURAN,Si Aplica
+/**
+ * Metodo para conseguir el Evento que le pertence a la Orden de pago, dependiendo si es BODA, INFANTIL, EMPRESARIAL.
+ * @param codigoEvento
+ * @return 
+ */
     public Evento conseguirEvento(String codigoEvento){
        ArrayList<String> eventos = ManejoArchivos.LeeFichero("eventos.txt");
        for(String linea: eventos){

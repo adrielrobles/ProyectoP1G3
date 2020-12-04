@@ -81,14 +81,25 @@ public abstract class Usuario {
         this.contrasena = contrasena;
         this.tipo = tipo;
     }
-    
-     public static Cliente buscarCliente(String nombre){
+    /**
+     * Permite buscar clientes en el sistema de acuerdo al nombre, este metodo se utilizar cuando leamos un archivo txt
+     * y poder recuperar todas la informacion del cliente.
+     * @param nombre
+     * @return 
+     */
+    public static Cliente buscarCliente(String nombre){
          for(Usuario u:Sistema.getUsuarios()){
              if(u.getNombre().equals(nombre)&&(u.getTipo()=='C')){
                  return (Cliente)u;
              }
          }return null;
     }  
+     /**
+      * Permite buscar planificador en el sistema de acuerdo al nombre, este metodo se utilizar cuando leamos un archivo txt
+      * y poder recuperar todas la informacion del planificador.      
+      * @param nombre
+      * @return 
+      */
     public static Planificador buscarPlanificador(String nombre){
          for(Usuario u:Sistema.getUsuarios()){
              if(u.getNombre().equals(nombre)&&(u.getTipo()=='P')){

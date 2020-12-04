@@ -21,9 +21,6 @@ import tipos.TipoEstadoO;
 public class Cliente extends Usuario {
     protected int telefono;
     protected String correoElectronico;
-    
-    
-    
     /**
      * Se crea constructor para poder darle valores a los atributos de Cliente
      * @param nombre
@@ -49,10 +46,7 @@ public class Cliente extends Usuario {
         this.telefono=telefono;
         this.correoElectronico=correoElectronico;
     }
-    //GETTERS 
-
-   
-
+    //GETTERS y Setters
     public int getTelefono() {
         return telefono;
     }
@@ -91,7 +85,11 @@ public class Cliente extends Usuario {
         } 
    
 
-    
+    /**
+     * Metodo para recuperar todos los Codigos de ordenes que estan pendiente de pago para que el 
+     * usuario si desea pagar o no.
+     * @return 
+     */
     public ArrayList<String> recuperarCodO(){      
         ArrayList<String> codigoOrden = new ArrayList<>();
        for(OrdenPago codPa: ordenPago){
@@ -100,6 +98,9 @@ public class Cliente extends Usuario {
        }
         return codigoOrden;
     }
+    /**
+     * Recupera todas las ordenes de pago que el cliente tiene PENDIENTEPAGO.
+     */
     public void  OrdenesDePago(){
         ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
         for(String cod: codigo){
@@ -112,6 +113,13 @@ public class Cliente extends Usuario {
            }
         }
     }
+    /**
+     * Permite cambiar el estado de las ordenes de Pago de PENDIENTEPAGO a APROBADO, cuando el cliente acepte el pago y podra agregar
+     * el codigo de transaccion, ademas de la fecha cuando se genere el pago.
+     * @param transaccion
+     * @param codOrden
+     * @param fecha 
+     */
     public void generarPago(String transaccion, String codOrden, Date fecha){
         for(OrdenPago codPa: ordenPago){
            if (codPa.getCodOrden().equals(codOrden)){

@@ -57,6 +57,7 @@ public class Planificador extends Usuario {
      * @param planificador 
      */
     public void obtenerSolicitudes(Planificador planificador){
+        solicitudes.clear();
         ArrayList<String> presolicitudes = ManejoArchivos.LeeFichero("solicitudes.txt");
          for (String pre : presolicitudes) {
             String listsoli[] = pre.split(",");
@@ -68,8 +69,12 @@ public class Planificador extends Usuario {
                 }
             }       
         }
-    }    
+    }
+/**
+ * Recupera todos los Eventos que le pertenecen al planificador y los agregas al arraylist de eventos del planificdor.
+ */    
     public void recuperarEventos(){
+      eventos.clear();
        ArrayList<String> leventos = ManejoArchivos.LeeFichero("eventos.txt");
        for(String linea: leventos){
            String listeventos[]= linea.split(",");
@@ -128,6 +133,12 @@ public class Planificador extends Usuario {
         }
         return true;     
     }
+    /**
+     * Permite consultar las ordenes de pago aprobadas que le pertenecen al planificador y poder observar
+     * cuando se realizo dicho pago.
+     * @param id_ordenPago
+     * @return 
+     */
       public boolean consultarOrdenPago(String id_ordenPago){
         for(OrdenPago orden:ordenPago){
             if(orden.getCodOrden().equals(id_ordenPago)){
@@ -203,20 +214,37 @@ public class Planificador extends Usuario {
         empresarial.setCantidadPersonas(cantVehiE);
         evento=empresarial;
     }
-    
+    /**
+     * Permite registrar el adicional que no posea descripcion para poder trabajar con el sin que haya sido guardado todavia.
+     * @param cantidad
+     * @param adicional 
+     */
     public void registrarAdicional(int cantidad,String adicional){
         evento.creapreAdicional(cantidad,adicional,evento);
         System.out.println("Total:"+evento.getPreadicional().getValorTotal());
     }
+    /**
+     * Permite registrar el adicional que  posea descripcion para poder trabajar con el sin que haya sido guardado todavia.
+     * @param cantidad
+     * @param adicional
+     * @param descripcion 
+     */
     public void registrarAdicional(int cantidad,String adicional,String descripcion){
         evento.creapreAdicional(cantidad,adicional,evento,descripcion);
         System.out.println("Total:"+evento.getPreadicional().getValorTotal());
     }
+    /**
+     * Permite generar agregar adiccionales al evento y presentando el total a pagar del evento
+     */
     public void agregaAdicional(){
         evento.aggAdicional();
         System.out.println("Se ha agregado su eleccion.");
         System.out.println("Total a pagar: "+evento.getPrecioTotal());
     }
+    /**
+     * Permite cambiar de Estado de solicitud cuando el evento haya sigo generado por el planificador.
+     * @param id_solicitud 
+     */
     public void cambiaEstadoS(String id_solicitud){
         int indice =0;
         for(Solicitud solicitud:solicitudes){
@@ -228,6 +256,11 @@ public class Planificador extends Usuario {
             }
         ManejoArchivos.sobrescrituraASolicitudes("solicitudes.txt", solicitudes);
         }
+    /**
+     * Metodo que permite cambiar el estado de Evento cuando el planificador haya ingresado el id de la orden de pago
+     * y preguntarle si desea aprobarla.
+     * @param id_solicitud 
+     */
     public void cambiaEstadoE(String id_solicitud){
         int indice =0;
         for(OrdenPago orden:ordenPago){
@@ -242,10 +275,22 @@ public class Planificador extends Usuario {
         ManejoArchivos.sobrescrituraAEvento(eventos,"eventos.txt");
         }
     
-
+/**
+ * Metodo que permite verificar si el adiccional ya le pertenece al evento o no solo para tipos de adicionales
+ * que no tengas descricion.
+ * @param tipoAdicional
+ * @return 
+ */
     public boolean verificacionAd(String tipoAdicional){
         return evento.verificacionAd(tipoAdicional);
     }
+    /**
+     * Metodo que permite verificar si el adiccional ya le pertenece al evento o no solo para tipos de adicionales
+     * que tengan descripcion.
+     * @param tipoAdicional
+     * @param descripcion
+     * @return 
+     */
     public boolean verificacionAd(String tipoAdicional,String descripcion){
         return evento.verificacionAd(tipoAdicional,descripcion);
     }
@@ -300,19 +345,26 @@ public class Planificador extends Usuario {
          System.out.println("/******************************************/");
          System.out.print(ordenPago.toString());
      }
+     /**
+      * Metodo que permite recuperar las ordenes de pagos del planificador ya sean que esten aprobadas o pendientes.
+      */
      public void  OrdenesDePago(){
-        //ordenPago= null;
+         ordenPago.clear();
         ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
         for(String cod: codigo){
            String listcod[]=cod.split(",");
            if(listcod.length==6){ 
                OrdenPago ordenPago= new OrdenPago(listcod[0],listcod[1],listcod[2],listcod[3],listcod[4],listcod[5]);
-               if (ordenPago.getEvento().getPlanificador().getNombre().equals(nombre)){
+               if (ordenPago.getEvento().getPlanificador().getNombre().equals(nombre)&&String.valueOf(ordenPago.getEstadoOrden()).equals("APROBADO")&&String.valueOf(ordenPago.getEvento().getEstado()).equals("PENDIENTE")){
                         this.ordenPago.add(ordenPago); 
            }
            }
         }       
     }
+     /**
+      * Permite recuperar el numero total de ordenes de pago aprobadas para el planificador.
+      * @return 
+      */
      public int numeroOrdenC(){       
          int i =0;
          for(OrdenPago orden1: ordenPago){
@@ -321,6 +373,11 @@ public class Planificador extends Usuario {
          }
          return i;
      }
+     /**
+      * Metodo para poder presentar por pantalla los eventos que le pertencen al planificador de acuerdo a la opcion 
+      * que desee, ademas de presentar un mensaje de acuerdo al tipo de evento.
+      * @param opcion 
+      */
      public void conteoEventos(String opcion){
          int num=0;
          Evento evento= null ;
@@ -359,20 +416,5 @@ public class Planificador extends Usuario {
          empresarial.mostrarMensaje();
          }
          }
-     }
-     
-//     public Planificador buscarPlanificador(ArrayList<Usuario> planificador) {
-//        ArrayList<Planificador> unPlanificador = new ArrayList<>();
-//        for (Usuario p: planificador){
-//            if (p.getTipo()=='P'){
-//                planificador.add(p);
-//            }
-//        }
-//        Random rand = new Random();
-//        int posicion = rand.nextInt(unPlanificador.size());
-//        Planificador elegidoPlanificador = unPlanificador.get(posicion);
-//        return elegidoPlanificador;
-//    }
-
-    
+     }    
 }

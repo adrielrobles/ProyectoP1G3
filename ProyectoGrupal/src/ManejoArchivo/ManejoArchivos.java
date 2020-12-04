@@ -83,8 +83,8 @@ public class ManejoArchivos {
         }
     }
     /**
-     * Creacion del metodo sobreescrituraA para sobrescibrir en el archivo solicitudes, es decir cambiar del tipo de estado PENDIENTE a
-     * APROBADP.
+     * Permite sobreescribir las solicitudes en el archivo solicitudes.txt para poder cambiar los estados de las solicitudes que ha 
+     * modificado el planificador
      * @param nombreArchivo
      * @param solicitudes 
      */
@@ -122,6 +122,12 @@ public class ManejoArchivos {
         EscribirArchivo(nombreArchivo,lineaA);
         }        
     }
+    /**
+     * Permite sobreescribir las Ordenes de Pago  en el archivo ordenesPago.txt para poder cambiar los estados de las ordenesPago que ha 
+     * modificado el Cliente al momento de cancelar la transaccion.
+     * @param orden
+     * @param nombreArchivo 
+     */
     public static void sobrescrituraAOrden(ArrayList<OrdenPago> orden, String nombreArchivo){
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); //Bro porque esta linea sino la utilizaste
         ArrayList<String> lista = LeeFichero(nombreArchivo);
@@ -161,6 +167,12 @@ public class ManejoArchivos {
         EscribirArchivo(nombreArchivo,lineaA);
         }        
     }
+    /**
+     *  Permite sobreescribir los eventos en el archivo evento.txt para poder cambiar los estados de los eventos que ha 
+     * modificado el planificador
+     * @param evento
+     * @param nombreArchivo 
+     */
     public static void sobrescrituraAEvento(ArrayList<Evento> evento, String nombreArchivo){
         ArrayList<String>lista=LeeFichero(nombreArchivo);
         ArrayList<String>nuevaLista=new ArrayList<>();

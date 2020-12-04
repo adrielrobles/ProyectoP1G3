@@ -56,7 +56,19 @@ public class Evento {
     public Evento() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+    /**
+     * Constructor que sirve para poder instanciar un evento al leer el archivo eventos.txt.    
+     * @param codigoEvento
+     * @param cliente
+     * @param tipoEvento
+     * @param fecha
+     * @param hora_Ini
+     * @param hora_Fin
+     * @param capacidad
+     * @param planificador
+     * @param estado
+     * @param lugar 
+     */
     public Evento(String codigoEvento, String cliente, String tipoEvento,String fecha,String hora_Ini, String hora_Fin, String capacidad, String planificador, String estado, String lugar){
         this.codigoEvento =codigoEvento;
         this.cliente = Usuario.buscarCliente(cliente);
@@ -303,6 +315,9 @@ public class Evento {
              linea = "NO POSEE ADICIONALES";
          return linea;
      }
+     /**
+      * Metodo requerido para que se pueda sobreescribir en los otros eventos.
+      */
      public void mostrarMensaje(){  
      }
 }

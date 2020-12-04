@@ -28,12 +28,26 @@ public class Empresarial extends Evento{
         super(fecha, cliente, planificador,tipoEvento);
         precioTotal= precioBase;
     }
-    //String lineaE=empresarial.getCodigoEvento()+","+empresarial.getCliente().getNombre()+","+empresarial.getTipoEvento()+","+empresarial.getFecha()+","+formatoh.format(empresarial.getHora_Ini())+","+formatoh.format(empresarial.getHora_Fin())+","+empresarial.getCapacidad()+","+empresarial.getPlanificador().getNombre()+","+empresarial.getEstado()+","+empresarial.getLugar()+","+empresarial.getCantidadPersonas();
-                
+    /**
+     *Constructor que sirve para poder instanciar un evento de tipo Empresarial al leer el archivo eventos.txt.
+     * @param codigoEvento
+     * @param cliente
+     * @param tipoEvento
+     * @param fecha
+     * @param hora_Ini
+     * @param hora_Fin
+     * @param capacidad
+     * @param planificador
+     * @param estado
+     * @param lugar
+     * @param cantidadPersonas 
+     */
     public Empresarial(String codigoEvento, String cliente, String tipoEvento,String fecha,String hora_Ini, String hora_Fin, String capacidad, String planificador, String estado, String lugar, String cantidadPersonas){
         super(codigoEvento,cliente,tipoEvento,fecha,hora_Ini,hora_Fin,capacidad,planificador,estado,lugar);
         this.cantidadPersonas=Integer.valueOf(cantidadPersonas);
     }
+    
+    //Getter y Setters
     public int getCantidadPersonas() {
         return cantidadPersonas;
     }
@@ -41,6 +55,9 @@ public class Empresarial extends Evento{
     public void setCantidadPersonas(int cantidadPersonas) {
         this.cantidadPersonas = cantidadPersonas;
     }
+    /**
+     * Metodo de sobrescritura de mostrarMensaje de parte de Empresarial.
+     */
     @Override
      public void mostrarMensaje(){
          System.out.println("Recuerde que el transporte al lugar del evento es gratuito en un próximo evento, si lo organizan con el mismo planificador.");
