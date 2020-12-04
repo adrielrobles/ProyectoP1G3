@@ -226,7 +226,7 @@ public class Planificador extends Usuario {
                 solicitudes.set(indice, solicitud);
             }
             }
-        ManejoArchivos.sobrescrituraA("solicitudes.txt", solicitudes);
+        ManejoArchivos.sobrescrituraASolicitudes("solicitudes.txt", solicitudes);
         }
     public void cambiaEstadoE(String id_solicitud){
         int indice =0;

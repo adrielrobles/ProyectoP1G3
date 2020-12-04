@@ -88,7 +88,7 @@ public class ManejoArchivos {
      * @param nombreArchivo
      * @param solicitudes 
      */
-    public static void sobrescrituraA(String nombreArchivo,ArrayList<Solicitud> solicitudes){
+    public static void sobrescrituraASolicitudes(String nombreArchivo,ArrayList<Solicitud> solicitudes){
         ArrayList<String> lista = LeeFichero(nombreArchivo);
         ArrayList<String> nuevaLista = new ArrayList<>();
         for (String linea:lista){

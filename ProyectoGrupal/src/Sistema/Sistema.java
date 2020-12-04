@@ -20,11 +20,10 @@ import evento.Evento;
 public class Sistema {
 
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
-    static Scanner sc = new Scanner(System.in);
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat formatoh = new SimpleDateFormat("HH:mm");
-    boolean fechaValidada = false;
-
+    private static final Scanner sc = new Scanner(System.in);
+    private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat formatoh = new SimpleDateFormat("HH:mm");
+    private boolean fechaValidada = false;
     public static ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -40,7 +39,7 @@ public class Sistema {
         agginfoUsuario();
         do {
             System.out.println("++++++++++++++++++++++++++++++++++++++++\n" + "|");
-            System.out.println("|\t BIENVENIDO AL SISTEMA\n" + "|");
+            System.out.println("|\t BIENVENIDO AL SISTEMA\n" +  "|");
             System.out.println("++++++++++++++++++++++++++++++++++++++++");
             System.out.print("USUARIO: ");
             String usuario = sc.nextLine();
