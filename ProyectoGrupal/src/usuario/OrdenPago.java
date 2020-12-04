@@ -7,7 +7,6 @@ package usuario;
 
 import ManejoArchivo.ManejoArchivos;
 import evento.*;
-import evento.Evento;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,8 +14,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tipos.TipoEstadoO;
-import tipos.TipoEstadoS;
-
 /**
  *
  * @author ErikaVilla

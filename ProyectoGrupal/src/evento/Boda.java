@@ -5,16 +5,10 @@
  */
 package evento;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import tipos.TipoEstadoE;
 import tipos.TipoEvento;
 import usuario.Cliente;
 import usuario.Planificador;
-import usuario.Usuario;
 
 /**
  *

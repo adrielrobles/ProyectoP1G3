@@ -6,17 +6,12 @@
 package usuario;
 
 import ManejoArchivo.ManejoArchivos;
-import Sistema.Sistema;
 import evento.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
-import tipos.TipoEstadoE;
-import tipos.TipoEstadoO;
-import tipos.TipoEstadoS;
-import tipos.TipoEvento;
+import tipos.*;
 
 /**
  *
@@ -63,6 +58,7 @@ public class Planificador extends Usuario {
      */
     public void obtenerSolicitudes(Planificador planificador){
         ArrayList<String> presolicitudes = ManejoArchivos.LeeFichero("solicitudes.txt");
+        
          for (String pre : presolicitudes) {
             String listsoli[] = pre.split(",");
             if(listsoli[2].equals(nombre)&&listsoli[5].equals("PENDIENTE")){
@@ -297,6 +293,7 @@ public class Planificador extends Usuario {
       */
      public void generarOrden(){
          OrdenPago ordenPago = new OrdenPago(evento);
+         System.out.println(ordenPago.getEstadoOrden());
          String linea=ordenPago.getCodOrden()+","+ordenPago.getEvento().getCodigoEvento()+","+ordenPago.getEvento().getPrecioTotal()+","+ordenPago.getEstadoOrden();
          ManejoArchivos.EscribirArchivo("ordenPago.txt",linea);
          System.out.println("/***********ORDEN DE PAGO*****************/");
@@ -305,6 +302,7 @@ public class Planificador extends Usuario {
          System.out.print(ordenPago.toString());
      }
      public void  OrdenesDePago(){
+        ordenPago= null;
         ArrayList<String> codigo= ManejoArchivos.LeeFichero("ordenPago.txt");
         for(String cod: codigo){
            String listcod[]=cod.split(",");
@@ -316,13 +314,13 @@ public class Planificador extends Usuario {
            }
         }       
     }
-     public int numeroEventosC(){
+     public int numeroOrdenC(){       
          int i =0;
-         for(Evento evento1: eventos){
-             if(String.valueOf(evento1.getEstado()).equals("CONFIRMADO"))
+         for(OrdenPago orden1: ordenPago){
+             if(String.valueOf(orden1.getEstadoOrden()).equals("APROBADO"))
                  i++;
          }
-         return 0;
+         return i;
      }
      public void conteoEventos(String opcion){
          int num=0;

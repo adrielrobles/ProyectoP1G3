@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import tipos.TipoAdicional;
 import tipos.TipoEstadoE;
-import tipos.TipoEstadoS;
 import tipos.TipoEvento;
 import usuario.Cliente;
 import usuario.Planificador;
-import usuario.Solicitud;
 import usuario.Usuario;
 
 /**
